@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { whatsappLink } from "../whatsapp";
 
 const terms = [
   ["Quotes & orders", "All quotes are valid for 7 days. An order is confirmed once payment (or an agreed deposit) is received and artwork is approved."],
@@ -15,37 +16,53 @@ const privacy = [
   ["Sharing", "We share delivery details only with our courier partners. We never sell your data or your artwork files to third parties."],
   ["Artwork files", "Files you send are used solely to fulfil your order. We don't reuse your designs for other customers."],
   ["Retention & security", "Order records are kept for accounting purposes; artwork files can be deleted on request. We take reasonable steps to keep your data safe."],
-  ["Contact", "Questions about your data? Message us on WhatsApp at +234 810 838 5033 or email us and we'll respond promptly."],
+  ["Contact", "Questions about your data? Message us on WhatsApp at +234 810 838 5033 and we'll respond promptly."],
 ];
 
 export default function Legal() {
-  const [tab, setTab] = useState<"terms" | "privacy">("terms");
+  const [tab, setTab] = useState<"terms" | "privacy">(
+    window.location.hash.includes("privacy") ? "privacy" : "terms"
+  );
   const rows = tab === "terms" ? terms : privacy;
 
   return (
-    <section className="legal" id="legal">
-      <div className="legal-head">
-        <h2>Terms &amp; privacy</h2>
-        <div className="pills">
-          <button className={tab === "terms" ? "pill on" : "pill"} onClick={() => setTab("terms")}>
-            Terms of service
-          </button>
-          <button className={tab === "privacy" ? "pill on" : "pill"} onClick={() => setTab("privacy")}>
-            Privacy policy
-          </button>
+    <div className="legal-page">
+      <header className="legal-top">
+        <a className="wordmark" href="/">
+          <img src="/photos/figma/logo-mark.svg" alt="" className="rmark" />
+          <span>eal Printing.ng</span>
+        </a>
+        <div className="legal-top-actions">
+          <a className="back-link" href="/">← Back to site</a>
+          <a className="btn-black" href={whatsappLink()} target="_blank" rel="noopener noreferrer">
+            Get a quote
+          </a>
         </div>
-      </div>
-      <div className="legal-rows">
-        {rows.map(([t, d], i) => (
-          <div className="legal-row" key={t}>
-            <span className="legal-num">{String(i + 1).padStart(2, "0")}</span>
-            <div>
-              <h3>{t}</h3>
-              <p>{d}</p>
-            </div>
+      </header>
+      <section className="legal">
+        <div className="legal-head">
+          <h2>Terms &amp; privacy</h2>
+          <div className="pills">
+            <button className={tab === "terms" ? "pill on" : "pill"} onClick={() => setTab("terms")}>
+              Terms of service
+            </button>
+            <button className={tab === "privacy" ? "pill on" : "pill"} onClick={() => setTab("privacy")}>
+              Privacy policy
+            </button>
           </div>
-        ))}
-      </div>
-    </section>
+        </div>
+        <div className="legal-rows">
+          {rows.map(([t, d], i) => (
+            <div className="legal-row" key={t}>
+              <span className="legal-num">{String(i + 1).padStart(2, "0")}</span>
+              <div>
+                <h3>{t}</h3>
+                <p>{d}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    </div>
   );
 }

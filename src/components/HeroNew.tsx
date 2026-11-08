@@ -83,11 +83,64 @@ export default function HeroNew() {
       <div className="tile tile-grad" />
       <img className="tile tile-bottles" src="/photos/figma/hero-bottles.png" alt="Printed water bottles" />
       <img className="tile tile-tote" src="/photos/figma/hero-tote.png" alt="Printed tote bag" />
-      <nav className={`mobile-nav${menu ? " open" : ""}`} aria-label="Mobile">
-        {nav.map(([label, href]) => (
-          <a key={label} href={href} onClick={() => setMenu(false)}>{label}</a>
-        ))}
-      </nav>
+      </div>
+
+      <div className="hero-mobile">
+        <header className="hm-top">
+          <a className="wordmark" href="#top">
+            <img src="/photos/figma/logo-mark.svg" alt="" className="rmark" />
+            <span>eal Printing.ng</span>
+          </a>
+          <div className="hm-actions">
+            <a className="btn-black hm-quote" href={whatsappLink()} target="_blank" rel="noopener noreferrer">
+              Get a quote
+            </a>
+            <button className="nav-burger" aria-label="Menu" aria-expanded={menu} onClick={() => setMenu((v) => !v)}>
+              <span /><span /><span />
+            </button>
+          </div>
+        </header>
+        <nav className={`mobile-nav${menu ? " open" : ""}`} aria-label="Mobile">
+          {nav.map(([label, href]) => (
+            <a key={label} href={href} onClick={() => setMenu(false)}>{label}</a>
+          ))}
+        </nav>
+        <div className="hm-body">
+          <h1>
+            You dream it,
+            <br />
+            we print it.
+          </h1>
+          <div className="hm-tiles" aria-hidden="true">
+            <div className="hm-tile pink"><img src="/photos/figma/hero-pink.png" alt="" /></div>
+            <div className="hm-tile blue"><img src="/photos/figma/hero-camera.png" alt="" /></div>
+            <div className="hm-tile"><img src="/photos/figma/hero-bottles.png" alt="" /></div>
+          </div>
+          <p className="hm-tag">
+            Custom apparel, corporate branding and promotional printing for businesses, creators and
+            events.
+          </p>
+          <form className="h-ask hm-ask" onSubmit={send}>
+            <label htmlFor="ask-m">Tell us what you want to print</label>
+            <div className="h-ask-box">
+              <input
+                id="ask-m"
+                type="text"
+                placeholder="e.g 300 tote bags for our launch event"
+                value={request}
+                onChange={(e) => setRequest(e.target.value)}
+              />
+              <button type="submit" aria-label="Send on WhatsApp">
+                <img src="/photos/figma/arrow-up.svg" alt="" />
+              </button>
+            </div>
+          </form>
+          <h1 className="hm-right">
+            then package
+            <br />
+            &amp; deliver
+          </h1>
+        </div>
       </div>
     </section>
   );

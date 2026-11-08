@@ -98,8 +98,8 @@ export default function Footer() {
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} Real Printing. All rights reserved.</span>
           <div className="links">
-            <a href="#legal">Privacy</a>
-            <a href="#legal">Terms</a>
+            <a href="#/legal" target="_blank" rel="noopener noreferrer">Privacy</a>
+            <a href="#/legal" target="_blank" rel="noopener noreferrer">Terms</a>
             <a href="#top">Back to top</a>
           </div>
         </div>

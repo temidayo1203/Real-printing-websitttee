@@ -9,6 +9,17 @@ import Legal from "./components/Legal";
 import Footer from "./components/Footer";
 
 export default function App() {
+  const isLegal = window.location.hash.startsWith("#/legal");
+
+  if (isLegal) {
+    return (
+      <>
+        <Legal />
+        <Footer />
+      </>
+    );
+  }
+
   return (
     <>
       <main>
@@ -19,7 +30,6 @@ export default function App() {
         <Estimator />
         <Faq />
         <Teaser />
-        <Legal />
       </main>
       <Footer />
     </>
