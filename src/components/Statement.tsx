@@ -2,7 +2,7 @@ import { whatsappLink } from "../whatsapp";
 
 export default function Statement() {
   return (
-    <section className="statement">
+    <section className="statement" id="about">
       <div className="eyebrow">
         <span className="sq" />
         <span>ENDLESS POSSIBILITIES</span>

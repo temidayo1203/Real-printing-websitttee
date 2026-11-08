@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 const small = [
   {
     co: "Kaks Construction",
@@ -7,6 +9,15 @@ const small = [
     role: "CEO",
     avatar: "/photos/figma/avatar1.png",
   },
+];
+
+const slides = [
+  { img: "/photos/figma/testimonial-photo.png", tag: "Signature apparel" },
+  { img: "/photos/figma/prod-tshirts.png", tag: "T-shirts" },
+  { img: "/photos/figma/prod-company.png", tag: "Corporate wear" },
+  { img: "/photos/figma/prod-kids.png", tag: "Kids clothing" },
+  { img: "/photos/figma/prod-sweat.png", tag: "Hoodies & sweatshirts" },
+  { img: "/photos/figma/prod-bags.png", tag: "Tote bags" },
 ];
 
 const bottom = [
@@ -37,8 +48,14 @@ const bottom = [
 ];
 
 export default function Testimonials() {
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setI((v) => (v + 1) % slides.length), 4500);
+    return () => clearInterval(t);
+  }, []);
+
   return (
-    <section className="tst">
+    <section className="tst" id="portfolio">
       <div className="tst-head">
         <h2>
           Trusted by businesses, <span>brands &amp; creators</span>
@@ -64,14 +81,42 @@ export default function Testimonials() {
             </div>
           ))}
           <div className="t-hero">
-            <img className="t-hero-bg" src="/photos/figma/testimonial-photo.png" alt="" />
+            {slides.map((s, j) => (
+              <img
+                key={s.img}
+                className={`t-hero-bg${j === i ? " on" : ""}`}
+                src={s.img}
+                alt={s.tag}
+              />
+            ))}
             <div className="t-hero-overlay" />
+            <span className="t-hero-tag">{slides[i].tag}</span>
             <p className="t-hero-quote">
               The team at Real Printing brought our ideas to life beautifully. They were easy to
               communicate with, provided great recommendations, and delivered products that looked
               even better than we imagined.
             </p>
             <p className="t-hero-name">Nnennya | Business owner</p>
+            <div className="t-dots" role="tablist" aria-label="Apparel slides">
+              {slides.map((s, j) => (
+                <button
+                  key={j}
+                  role="tab"
+                  aria-selected={j === i}
+                  aria-label={s.tag}
+                  className={j === i ? "dot on" : "dot"}
+                  onClick={() => setI(j)}
+                />
+              ))}
+            </div>
+            <div className="t-arrows">
+              <button aria-label="Previous" onClick={() => setI((i - 1 + slides.length) % slides.length)}>
+                ←
+              </button>
+              <button aria-label="Next" onClick={() => setI((i + 1) % slides.length)}>
+                →
+              </button>
+            </div>
           </div>
         </div>
         <div className="tst-row2">

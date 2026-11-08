@@ -1,10 +1,18 @@
 import { useState } from "react";
 import { whatsappLink } from "../whatsapp";
 
-const nav = ["Services", "Portfolio", "How it works", "Project estimator", "About", "Contact"];
+const nav = [
+  ["Services", "#services"],
+  ["Portfolio", "#portfolio"],
+  ["How it works", "#how-it-works"],
+  ["Project estimator", "#project-estimator"],
+  ["About", "#about"],
+  ["Contact", "#contact"],
+];
 
 export default function HeroNew() {
   const [request, setRequest] = useState("");
+  const [menu, setMenu] = useState(false);
   const send = (e: React.FormEvent) => {
     e.preventDefault();
     const msg = request.trim() || "I'd like a custom print quote.";
@@ -12,7 +20,7 @@ export default function HeroNew() {
   };
 
   return (
-    <section className="hero-n">
+    <section className="hero-n" id="top">
       <div className="hero-stage">
       <header className="topbar">
         <a className="wordmark" href="#top">
@@ -20,10 +28,13 @@ export default function HeroNew() {
           <span>eal Printing.ng</span>
         </a>
         <nav className="nav-links" aria-label="Primary">
-          {nav.map((n) => (
-            <a key={n} href={`#${n.toLowerCase().replace(/\s+/g, "-")}`}>{n}</a>
+          {nav.map(([label, href]) => (
+            <a key={label} href={href}>{label}</a>
           ))}
         </nav>
+        <button className="nav-burger" aria-label="Menu" onClick={() => setMenu((v) => !v)}>
+          <span /><span /><span />
+        </button>
         <a className="btn-black" href={whatsappLink()} target="_blank" rel="noopener noreferrer">
           Get a quote
         </a>
@@ -72,6 +83,11 @@ export default function HeroNew() {
       <div className="tile tile-grad" />
       <img className="tile tile-bottles" src="/photos/figma/hero-bottles.png" alt="Printed water bottles" />
       <img className="tile tile-tote" src="/photos/figma/hero-tote.png" alt="Printed tote bag" />
+      <nav className={`mobile-nav${menu ? " open" : ""}`} aria-label="Mobile">
+        {nav.map(([label, href]) => (
+          <a key={label} href={href} onClick={() => setMenu(false)}>{label}</a>
+        ))}
+      </nav>
       </div>
     </section>
   );

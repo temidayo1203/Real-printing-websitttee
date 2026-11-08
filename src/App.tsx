@@ -5,6 +5,7 @@ import Testimonials from "./components/Testimonials";
 import Estimator from "./components/Estimator";
 import Faq from "./components/Faq";
 import Teaser from "./components/Teaser";
+import Legal from "./components/Legal";
 import Footer from "./components/Footer";
 
 export default function App() {
@@ -18,6 +19,7 @@ export default function App() {
         <Estimator />
         <Faq />
         <Teaser />
+        <Legal />
       </main>
       <Footer />
     </>
