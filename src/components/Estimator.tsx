@@ -3,7 +3,7 @@ import { whatsappLink } from "../whatsapp";
 
 const methods = ["DTF transfer", "Screen print", "Embroidery", "Sublimation", "Vinyl (HTV)"];
 const products = [
-  { name: "T-shirt", garment: 4900 },
+  { name: "T-shirt", garment: 4500 },
   { name: "Hoodie", garment: 9500 },
   { name: "Cap", garment: 3800 },
   { name: "Tote bag", garment: 4200 },
@@ -17,11 +17,11 @@ const extras = [
   { name: "Rush production", price: 25000 },
 ];
 const methodBase: Record<string, number> = {
-  "DTF transfer": 2100,
-  "Screen print": 1800,
-  Embroidery: 3200,
-  Sublimation: 2400,
-  "Vinyl (HTV)": 1900,
+  "DTF transfer": 4000,
+  "Screen print": 3800,
+  Embroidery: 5200,
+  Sublimation: 4200,
+  "Vinyl (HTV)": 3900,
 };
 const DELIVERY = 3500;
 const fmt = (n: number) => "₦" + Math.round(n).toLocaleString("en-US");
@@ -29,9 +29,11 @@ const fmt = (n: number) => "₦" + Math.round(n).toLocaleString("en-US");
 export default function Estimator() {
   const [method, setMethod] = useState(methods[0]);
   const [product, setProduct] = useState(products[0]);
-  const [qty, setQty] = useState(24);
+  const [qtyStr, setQtyStr] = useState("24");
+  const qty = Math.max(1, parseInt(qtyStr, 10) || 1);
   const [locations, setLocations] = useState(1);
-  const [colours, setColours] = useState(2);
+    const [colStr, setColStr] = useState("2");
+  const colours = Math.min(8, Math.max(1, parseInt(colStr, 10) || 1));
   const [size, setSize] = useState(sizes[0]);
   const [picked, setPicked] = useState<boolean[]>(extras.map(() => false));
 
@@ -40,7 +42,7 @@ export default function Estimator() {
     const printPerPiece = methodBase[method] * locations * sizeFactor + (colours - 2) * 150;
     const garments = qty * product.garment;
     const printing = qty * printPerPiece;
-    const discount = qty >= 24 ? (garments + printing) * 0.05 : 0;
+    const discount = qty > 20 ? (garments + printing) * 0.03 : 0;
     const setup = extras.reduce((s, e, i) => s + (picked[i] ? e.price : 0), 0);
     const total = garments + printing - discount + DELIVERY + setup;
     return { printPerPiece, garments, printing, discount, setup, total, perPiece: total / qty };
@@ -82,8 +84,8 @@ export default function Estimator() {
                 <span>How many pieces do you need?</span>
                 <span className="chip">{qty}</span>
               </div>
-              <input type="range" min={1} max={500} value={qty} onChange={(e) => setQty(+e.target.value)} />
-              <input className="num" type="number" min={1} value={qty} onChange={(e) => setQty(Math.max(1, +e.target.value || 1))} />
+              <input type="range" min={1} max={500} value={qtyStr} onChange={(e) => setQtyStr(e.target.value)} />
+              <input className="num" type="number" min={1} value={qtyStr} onChange={(e) => setQtyStr(e.target.value)} onBlur={() => setQtyStr(String(qty))} />
             </div>
           </div>
 
@@ -101,7 +103,7 @@ export default function Estimator() {
               <div className="ctrl-duo">
                 <label>
                   <span>Colours per design</span>
-                  <input className="num" type="number" min={1} max={8} value={colours} onChange={(e) => setColours(Math.min(8, Math.max(1, +e.target.value || 1)))} />
+                  <input className="num" type="number" min={1} max={8} value={colStr} onChange={(e) => setColStr(e.target.value)} onBlur={() => setColStr(String(colours))} />
                 </label>
                 <label>
                   <span>Print size</span>
@@ -139,7 +141,7 @@ export default function Estimator() {
           <div className="sline"><span>Quote</span><span>{product.name} · {method}</span></div>
           <div className="sline"><span><b className="chip2">{qty}x</b> {plural}</span><span>{fmt(calc.garments)}</span></div>
           <div className="sline"><span><b className="chip2">{locations}x</b> Printing</span><span>{fmt(calc.printing)}</span></div>
-          <div className="sline"><span>Volume discount (5%)</span><span>−{fmt(calc.discount)}</span></div>
+          <div className="sline"><span>Volume discount (3%)</span><span>−{fmt(calc.discount)}</span></div>
           {calc.setup > 0 && <div className="sline"><span>Setup</span><span>{fmt(calc.setup)}</span></div>}
           <div className="sline"><span>Delivery</span><span>{fmt(DELIVERY)}</span></div>
           <div className="stotal">
