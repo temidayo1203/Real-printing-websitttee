@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { whatsappLink } from "../whatsapp";
 
-const methods = ["DTF transfer", "Screen print", "Embroidery", "Sublimation", "Vinyl (HTV)"];
+const methods = ["DTF transfer", "Screen print", "Embroidery", "Sublimation"];
 const products = [
   { name: "T-shirt", garment: 4500 },
   { name: "Hoodie", garment: 9500 },
@@ -18,7 +18,7 @@ const extras = [
 ];
 const methodBase: Record<string, number> = {
   "DTF transfer": 4000,
-  "Screen print": 3800,
+  "Screen print": 4000,
   Embroidery: 5200,
   Sublimation: 4200,
   "Vinyl (HTV)": 3900,
