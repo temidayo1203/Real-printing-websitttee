@@ -602,11 +602,11 @@ button, input, select { font: inherit; }
   .wait-form { display: none; }
   .wait-form.open {
     display: flex; flex-direction: row; align-items: center; gap: 6px;
-    background: #fff; border: 1.5px solid #e3e3e6; border-radius: 999px;
+    background: #fff; border: 1.5px solid #e3e3e6; border-radius: 0;
     padding: 5px 5px 5px 22px; width: 100%; box-sizing: border-box;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
   }
-  .wait-reveal { display: inline-flex; height: 54px; min-width: 240px; border-radius: 999px; font-size: 15px; }
+  .wait-reveal { display: inline-flex; height: 54px; min-width: 240px; border-radius: 0; font-size: 15px; }
   .teaser-copy:has(.wait-form.open) .wait-reveal { display: none; }
   .wait-form input {
     height: 44px; flex: 1; min-width: 0; font-size: 15px;
@@ -616,7 +616,7 @@ button, input, select { font: inherit; }
   .wait-form input::placeholder { color: #9a9aa0; }
   .wait-form .btn-black {
     height: 44px; flex: none; font-size: 14px;
-    border-radius: 999px; padding: 0 22px; white-space: nowrap;
+    border-radius: 0; padding: 0 22px; white-space: nowrap;
   }
 }
 
