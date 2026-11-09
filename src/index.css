@@ -611,6 +611,6 @@ button, input, select { font: inherit; }
 .wait-done { font-size: 15px; font-weight: 500; color: #1b1b1f; margin: 0; }
 @media (max-width: 480px) {
   .wait-form { flex-direction: column; align-items: stretch; gap: 10px; }
-  .wait-form input, .wait-form .btn-black { height: 42px; font-size: 13px; }
+  .wait-form input, .wait-form .btn-black { height: 44px; font-size: 13px; }
   .wait-form .btn-black { width: 100%; }
 }
