@@ -79,7 +79,7 @@ export default function Footer() {
             <ul>
               {useCases.map((i) => (
                 <li key={i}>
-                  <a href="#portfolio">{i}</a>
+                  <span>{i}</span>
                 </li>
               ))}
             </ul>
