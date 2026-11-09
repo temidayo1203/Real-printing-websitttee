@@ -557,20 +557,25 @@ button, input, select { font: inherit; }
   display: grid; grid-template-columns: 1fr 1fr;
   border: 1px solid var(--line); border-radius: 24px; overflow: hidden;
 }
-.steps-left { padding: 56px 48px; background: #faf7f2; }
+.steps-left { padding: 56px 48px; background: var(--navy); }
 .eyebrow-chip {
   display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.08em;
   text-transform: uppercase; color: var(--ink-soft);
   background: #fff; border: 1px solid var(--line); border-radius: 999px;
   padding: 6px 14px; margin-bottom: 24px;
 }
-.steps-left h2 { font-size: clamp(30px, 3.4vw, 44px); line-height: 1.08; letter-spacing: -0.025em; margin: 0 0 18px; }
-.steps-left p { color: var(--ink-soft); line-height: 1.6; margin: 0 0 32px; max-width: 40ch; }
+.steps-left h2 {
+  font-family: var(--slabo); font-weight: 400;
+  font-size: clamp(30px, 3.4vw, 44px); line-height: 1.1; letter-spacing: -0.02em;
+  color: #fff; margin: 0 0 18px;
+}
+.steps-left p { color: #b9b9cf; line-height: 1.6; margin: 0 0 32px; max-width: 40ch; }
 .steps-left .row { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
 .btn-yellow {
   display: inline-flex; align-items: center; background: #ffd45c; color: var(--ink);
   font-weight: 600; font-size: 14px; padding: 13px 26px; border-radius: 999px; border: none; cursor: pointer;
 }
+.steps-left .text-link { font-size: 14px; font-weight: 600; color: #fff; }
 .text-link { font-size: 14px; font-weight: 600; color: var(--ink); }
 .text-link:hover { text-decoration: underline; text-underline-offset: 4px; }
 .steps-right { display: flex; flex-direction: column; }
