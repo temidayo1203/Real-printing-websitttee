@@ -506,7 +506,8 @@ button, input, select { font: inherit; }
   }
   .hm-body h1 {
     font-family: var(--slabo); font-weight: 400; color: #000; margin: 0;
-    font-size: clamp(34px, 10vw, 52px); line-height: 1.08; letter-spacing: -1px;
+    font-size: clamp(19px, 7vw, 42px); line-height: 1.12; letter-spacing: -0.5px;
+    white-space: nowrap;
   }
   .hm-tiles { display: flex; gap: 10px; margin: 22px 0; }
   .hm-tile { flex: 1; height: 108px; border-radius: 10px; overflow: hidden; }
@@ -520,7 +521,6 @@ button, input, select { font: inherit; }
   .hm-ask { position: static; transform: none; width: 100%; align-items: stretch; text-align: center; }
   .hm-ask .h-ask-box { height: 60px; }
   .hm-ask .h-ask-box button { top: 8px; right: 10px; width: 40px; height: 40px; }
-  .hm-right { text-align: left; margin: 2px 0 0 !important; }
 }
 
 /* ---------- Statement mobile fix ---------- */

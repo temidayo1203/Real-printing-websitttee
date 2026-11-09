@@ -107,14 +107,9 @@ export default function HeroNew() {
         </nav>
         <div className="hm-body">
           <h1>
-            You dream it,
+            You dream it, we print it.
             <br />
-            we print it.
-          </h1>
-          <h1 className="hm-right">
-            then package
-            <br />
-            &amp; deliver
+            then package &amp; deliver.
           </h1>
           <div className="hm-tiles" aria-hidden="true">
             <div className="hm-tile pink"><img src="/photos/figma/hero-pink.png" alt="" /></div>
