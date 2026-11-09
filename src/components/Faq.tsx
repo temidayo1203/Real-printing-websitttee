@@ -22,12 +22,16 @@ const faqs = [
     a: "Standard turnaround is 48–72 hours once artwork is approved. Rush production is available on request.",
   },
   {
-    q: "How long does production take?",
-    a: "Standard turnaround is 48–72 hours once artwork is approved. Rush production is available on request.",
+    q: "How do I get a quote?",
+    a: "Use the instant estimator above for a ballpark figure, or send us your job on WhatsApp — we reply with a full quote within minutes during working hours.",
   },
   {
-    q: "How long does production take?",
-    a: "Standard turnaround is 48–72 hours once artwork is approved. Rush production is available on request.",
+    q: "Which printing method do you use?",
+    a: "We offer DTF transfer, screen printing, embroidery, sublimation and vinyl (HTV). We'll recommend the best method for your fabric, artwork and budget.",
+  },
+  {
+    q: "Can I bring my own garments or materials?",
+    a: "Yes — you can supply your own garments, and we'll quote printing-only pricing. We inspect supplied items before production and confirm they're print-ready.",
   },
 ];
 
