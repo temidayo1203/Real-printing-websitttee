@@ -57,9 +57,9 @@ button, input, select { font: inherit; }
   display: flex; align-items: center; gap: 1px;
   white-space: nowrap; flex-shrink: 0;
 }
-.wordmark .rmark { width: 28px; height: 30px; flex: none; object-fit: contain; }
+.wordmark .rmark { width: 21px; height: 22.5px; flex: none; object-fit: contain; }
 .wordmark span {
-  font-family: var(--slabo); font-size: 28px; line-height: 1; color: #000;
+  font-family: var(--slabo); font-size: 21px; line-height: 1; color: #000;
   letter-spacing: -0.4px; margin-top: 2px; white-space: nowrap;
 }
 .brand .rmark { width: 28px; height: 30px; flex: none; object-fit: contain; filter: invert(1); }
