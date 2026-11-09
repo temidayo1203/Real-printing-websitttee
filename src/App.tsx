@@ -27,9 +27,9 @@ export default function App() {
         <HeroNew />
         <Statement />
         <ProductsNew />
+        <Steps />
         <Testimonials />
         <Estimator />
-        <Steps />
         <Faq />
         <Teaser />
       </main>
