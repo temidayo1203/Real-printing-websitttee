@@ -600,16 +600,17 @@ button, input, select { font: inherit; }
 
 .wait-form { display: flex; gap: 10px; align-items: stretch; }
 .wait-form .btn-black {
-  height: 49px; padding: 0 24px; border-radius: 10px; font-size: 14px; flex: none;
+  height: 49px; padding: 0 24px; border-radius: 0; font-size: 14px; flex: none;
 }
 .wait-form input {
   height: 49px; flex: 1; min-width: 0; padding: 0 18px; box-sizing: border-box;
-  border: 1.5px solid #d9d9d9; border-radius: 10px; font: inherit; font-size: 14px;
+  border: 1.5px solid #d9d9d9; border-radius: 0; font: inherit; font-size: 14px;
   background: #fff; color: #1b1b1f; outline: none;
 }
 .wait-form input:focus { border-color: #1b1b1f; }
 .wait-done { font-size: 15px; font-weight: 500; color: #1b1b1f; margin: 0; }
 @media (max-width: 480px) {
-  .wait-form { flex-direction: column; align-items: stretch; gap: 12px; }
+  .wait-form { flex-direction: column; align-items: stretch; gap: 10px; }
+  .wait-form input, .wait-form .btn-black { height: 42px; font-size: 13px; }
   .wait-form .btn-black { width: 100%; }
 }
