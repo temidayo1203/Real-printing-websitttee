@@ -134,7 +134,7 @@ export default function HeroNew() {
               {svc && (
                 <div className="mnav-sub">
                   {SERVICES.map(([label, icon]) => (
-                    <a key={label} href="#products" className="mnav-item" onClick={() => setMenu(false)}>
+                    <a key={label} href="#services" className="mnav-item" onClick={() => setMenu(false)}>
                       <span className="mnav-ico" dangerouslySetInnerHTML={{ __html: icon }} />
                       <span>{label}</span>
                       <svg width="16" height="16" viewBox="0 0 16 16"><path d="M6 3.5l4.5 4.5L6 12.5" fill="none" stroke="#9a9a9a" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
