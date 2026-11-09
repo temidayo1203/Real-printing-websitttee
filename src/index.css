@@ -304,7 +304,6 @@ button, input, select { font: inherit; }
 .fa5 { left: 1005.4px; top: 685.5px; width: 43.7px; }
 .fa6 { left: 239px; top: 501.8px; width: 40.7px; }
 .fa7 { left: 642.2px; top: 663.7px; width: 81.4px; }
-.faq-stage .faq-title { position: absolute; }
 .faq-title {
   position: absolute; left: 95px; top: 132px; width: 701px;
   font-family: var(--slabo); font-weight: 400; font-size: 69.23px; line-height: 79.8px;
@@ -325,7 +324,6 @@ button, input, select { font: inherit; }
 .faq-item.open > button img { transform: rotate(180deg); }
 .faq-a { padding: 0 14px 18px; font-size: 13px; line-height: 1.55; color: #3a3a3a; margin: 0; }
 @media (min-width: 1440px) {
-  .faq-art, .faq-title, .faq-list { /* positioned inside stage coords below */ }
   .faq-stage { width: 1440px; height: 861px; left: 50%; transform: translateX(-50%) scale(var(--s)); transform-origin: top center; }
 }
 @media (max-width: 1439.9px) {
