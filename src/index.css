@@ -599,19 +599,24 @@ button, input, select { font: inherit; }
 .wait-done { font-size: 15px; font-weight: 500; color: #1b1b1f; margin: 0; }
 .wait-reveal { display: none; }
 @media (max-width: 768px) {
-  .wait-form { display: none; flex-direction: column; align-items: center; gap: 14px; }
-  .wait-form.open { display: flex; }
-  .wait-form.open + * { display: none; }
-  .wait-reveal { display: inline-flex; height: 54px; min-width: 240px; border-radius: 10px; font-size: 15px; }
+  .wait-form { display: none; }
+  .wait-form.open {
+    display: flex; flex-direction: row; align-items: center; gap: 6px;
+    background: #fff; border: 1.5px solid #e3e3e6; border-radius: 999px;
+    padding: 5px 5px 5px 22px; width: 100%; box-sizing: border-box;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  }
+  .wait-reveal { display: inline-flex; height: 54px; min-width: 240px; border-radius: 999px; font-size: 15px; }
   .teaser-copy:has(.wait-form.open) .wait-reveal { display: none; }
   .wait-form input {
-    height: 58px; width: 100%; font-size: 15px; box-sizing: border-box; -webkit-appearance: none; appearance: none;
-    background: #f3f3f5; border: none; border-radius: 10px; padding: 0 20px;
+    height: 44px; flex: 1; min-width: 0; font-size: 15px;
+    -webkit-appearance: none; appearance: none;
+    background: transparent; border: none; border-radius: 0; padding: 0;
   }
   .wait-form input::placeholder { color: #9a9aa0; }
   .wait-form .btn-black {
-    height: 54px; width: auto; min-width: 240px; font-size: 15px;
-    border-radius: 10px; padding: 0 36px;
+    height: 44px; flex: none; font-size: 14px;
+    border-radius: 999px; padding: 0 22px; white-space: nowrap;
   }
 }
 
