@@ -55,11 +55,17 @@ button, input, select { font: inherit; }
 .wordmark {
   position: absolute; left: 61px; top: 31px;
   display: flex; align-items: center; gap: 1px;
+  white-space: nowrap; flex-shrink: 0;
 }
-.wordmark .rmark { width: 27.7px; height: 29.6px; }
+.wordmark .rmark { width: 28px; height: 30px; flex: none; object-fit: contain; }
 .wordmark span {
-  font-family: var(--slabo); font-size: 27.76px; color: #000;
-  letter-spacing: -0.4px; margin-top: 2px;
+  font-family: var(--slabo); font-size: 28px; line-height: 1; color: #000;
+  letter-spacing: -0.4px; margin-top: 2px; white-space: nowrap;
+}
+.brand .rmark { width: 28px; height: 30px; flex: none; object-fit: contain; filter: invert(1); }
+.brand span {
+  font-family: var(--slabo); font-size: 28px; line-height: 1; color: #fff;
+  letter-spacing: -0.4px; white-space: nowrap;
 }
 .nav-links {
   position: absolute; left: 50%; top: 38px; transform: translateX(-50%);

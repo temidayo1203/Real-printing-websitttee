@@ -48,9 +48,9 @@ export default function Footer() {
       <div className="container">
         <div className="footer-top">
           <div className="footer-brand">
-            <a className="brand" href="#top" style={{ color: "#fff" }}>
-              <span className="brand-mark">RP</span>
-              Real Printing
+            <a className="brand" href="#top">
+              <img src="/photos/figma/logo-mark.svg" alt="" className="rmark" />
+              <span>eal Printing.ng</span>
             </a>
             <p>
               The print partner behind your brand. Designed by you, printed and shipped
