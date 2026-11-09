@@ -507,7 +507,7 @@ button, input, select { font: inherit; }
   .hm-body h1 {
     font-family: var(--slabo); font-weight: 400; color: #000; margin: 0;
     font-size: clamp(19px, 7vw, 42px); line-height: 1.12; letter-spacing: -0.5px;
-    white-space: nowrap;
+    white-space: nowrap; text-align: center; align-self: center;
   }
   .hm-tiles { display: flex; gap: 10px; margin: 22px 0; }
   .hm-tile { flex: 1; height: 108px; border-radius: 10px; overflow: hidden; }
