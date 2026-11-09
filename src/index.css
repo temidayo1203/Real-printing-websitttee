@@ -520,10 +520,7 @@ button, input, select { font: inherit; }
   .hm-ask { position: static; transform: none; width: 100%; align-items: stretch; text-align: center; }
   .hm-ask .h-ask-box { height: 60px; }
   .hm-ask .h-ask-box button { top: 8px; right: 10px; width: 40px; height: 40px; }
-  .hm-right {
-    align-self: flex-start; text-align: left; margin-top: 24px !important;
-    font-size: clamp(26px, 7vw, 34px) !important; line-height: 1.15;
-  }
+  .hm-right { text-align: left; margin: 2px 0 0 !important; }
 }
 
 /* ---------- Statement mobile fix ---------- */

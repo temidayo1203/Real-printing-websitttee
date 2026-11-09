@@ -111,6 +111,11 @@ export default function HeroNew() {
             <br />
             we print it.
           </h1>
+          <h1 className="hm-right">
+            then package
+            <br />
+            &amp; deliver
+          </h1>
           <div className="hm-tiles" aria-hidden="true">
             <div className="hm-tile pink"><img src="/photos/figma/hero-pink.png" alt="" /></div>
             <div className="hm-tile blue"><img src="/photos/figma/hero-camera.png" alt="" /></div>
@@ -135,11 +140,6 @@ export default function HeroNew() {
               </button>
             </div>
           </form>
-          <h1 className="hm-right">
-            then package
-            <br />
-            &amp; deliver
-          </h1>
         </div>
       </div>
     </section>
