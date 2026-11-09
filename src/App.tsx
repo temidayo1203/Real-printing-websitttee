@@ -3,6 +3,7 @@ import Statement from "./components/Statement";
 import ProductsNew from "./components/ProductsNew";
 import Testimonials from "./components/Testimonials";
 import Estimator from "./components/Estimator";
+import Steps from "./components/Steps";
 import Faq from "./components/Faq";
 import Teaser from "./components/Teaser";
 import Legal from "./components/Legal";
@@ -28,6 +29,7 @@ export default function App() {
         <ProductsNew />
         <Testimonials />
         <Estimator />
+        <Steps />
         <Faq />
         <Teaser />
       </main>

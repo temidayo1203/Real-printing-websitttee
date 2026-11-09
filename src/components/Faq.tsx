@@ -36,7 +36,7 @@ const art = [1, 2, 3, 4, 5, 6, 7];
 export default function Faq() {
   const [open, setOpen] = useState<number | null>(null);
   return (
-    <section className="faq" id="how-it-works">
+    <section className="faq" id="faqs">
       <div className="faq-stage">
       <div className="faq-art" aria-hidden="true">
         {art.map((i) => (
