@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://realprints.com.ng/sitemap.xml
