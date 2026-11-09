@@ -597,8 +597,13 @@ button, input, select { font: inherit; }
 }
 .wait-form input:focus { border-color: #1b1b1f; }
 .wait-done { font-size: 15px; font-weight: 500; color: #1b1b1f; margin: 0; }
+.wait-reveal { display: none; }
 @media (max-width: 768px) {
-  .wait-form { flex-direction: column; align-items: center; gap: 14px; }
+  .wait-form { display: none; flex-direction: column; align-items: center; gap: 14px; }
+  .wait-form.open { display: flex; }
+  .wait-form.open + * { display: none; }
+  .wait-reveal { display: inline-flex; height: 54px; min-width: 240px; border-radius: 10px; font-size: 15px; }
+  .teaser-copy:has(.wait-form.open) .wait-reveal { display: none; }
   .wait-form input {
     height: 58px; width: 100%; font-size: 15px; box-sizing: border-box; -webkit-appearance: none; appearance: none;
     background: #f3f3f5; border: none; border-radius: 10px; padding: 0 20px;

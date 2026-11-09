@@ -7,6 +7,7 @@ export default function Teaser() {
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [open, setOpen] = useState(false);
 
   async function join(e: React.FormEvent) {
     e.preventDefault();
@@ -39,7 +40,11 @@ export default function Teaser() {
         {sent ? (
           <p className="wait-done">You're on the list — we'll reach out when it's ready.</p>
         ) : (
-          <form className="wait-form" onSubmit={join}>
+          <>
+          <button type="button" className="btn-black wait-reveal" onClick={() => setOpen(true)}>
+            Join the waitlist
+          </button>
+          <form className={`wait-form${open ? " open" : ""}`} onSubmit={join}>
             <input
               type="email"
               required
@@ -51,6 +56,7 @@ export default function Teaser() {
               {busy ? "Joining…" : "Join the waitlist"}
             </button>
           </form>
+          </>
         )}
       </div>
       <img className="teaser-img" src="/photos/figma/designer.png" alt="Preview of the upcoming Real Printing online designer" />
