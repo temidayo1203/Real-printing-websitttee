@@ -521,8 +521,8 @@ button, input, select { font: inherit; }
   .hm-ask .h-ask-box { height: 60px; }
   .hm-ask .h-ask-box button { top: 8px; right: 10px; width: 40px; height: 40px; }
   .hm-right {
-    align-self: flex-end; text-align: right; margin-top: 24px !important;
-    font-size: clamp(28px, 7.5vw, 40px) !important;
+    align-self: flex-start; text-align: left; margin-top: 24px !important;
+    font-size: clamp(26px, 7vw, 34px) !important; line-height: 1.15;
   }
 }
 
