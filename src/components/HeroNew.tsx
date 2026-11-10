@@ -142,7 +142,7 @@ export default function HeroNew() {
               )}
               <a className="mnav-row" href="#about" onClick={() => setMenu(false)}><span>About</span><Arrow/></a>
               <a className="mnav-row" href="#how-it-works" onClick={() => setMenu(false)}><span>How it works</span><Arrow/></a>
-              <a className="mnav-row" href="#estimator" onClick={() => setMenu(false)}><span>Project estimator</span><Arrow/></a>
+              <a className="mnav-row" href="#project-estimator" onClick={() => setMenu(false)}><span>Project estimator</span><Arrow/></a>
               <a className="mnav-row" href="#contact" onClick={() => setMenu(false)}><span>Contact</span><Arrow/></a>
             </div>
             <a className="mnav-cta" href={whatsappLink()} target="_blank" rel="noopener noreferrer">Get a quote</a>
