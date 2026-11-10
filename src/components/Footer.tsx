@@ -56,6 +56,7 @@ export default function Footer() {
               The print partner behind your brand. Designed by you, printed and shipped
               by us — on demand, nationwide.
             </p>
+            <a className="footer-phone" href="tel:+2348108385033">+234 810 838 5033</a>
             <div className="socials">
               {socials.map((s) => (
                 <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.name} title={s.name}>

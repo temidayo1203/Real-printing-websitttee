@@ -436,6 +436,11 @@ button, input, select { font: inherit; }
 .legal-row p { font-size: 14px; line-height: 1.6; color: #636363; margin: 0; }
 
 /* ---------- Socials ---------- */
+.footer-phone {
+  display: inline-block; margin-top: 16px; color: #fff; font-size: 15px;
+  font-weight: 600; text-decoration: none;
+}
+.footer-phone:hover { color: var(--lime); }
 .socials { display: flex; gap: 10px; margin-top: 24px; }
 .socials a {
   width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center;
