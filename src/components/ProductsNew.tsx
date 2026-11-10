@@ -1,12 +1,12 @@
 import { whatsappLink } from "../whatsapp";
 
 const items = [
-  { name: "T- shirts", img: "/photos/figma/prod-tshirts.jpg", bg: null },
-  { name: "Bags", img: "/photos/figma/prod-bags.png", bg: null },
-  { name: "Water bottles", img: "/photos/figma/prod-bottles.jpg", bg: null },
-  { name: "Company wears", img: "/photos/figma/prod-company.png", bg: "#6ebad6" },
-  { name: "Kids Clothings", img: "/photos/figma/prod-kids.jpg", bg: "#2679f3" },
-  { name: "Sweatshirt", img: "/photos/figma/prod-sweat.jpg", bg: null },
+  { name: "T- shirts", img: "/photos/figma/prod-tshirts.jpg", alt: "Custom t-shirt printing Lagos", bg: null },
+  { name: "Bags", img: "/photos/figma/prod-bags.png", alt: "Custom printed tote bags Nigeria", bg: null },
+  { name: "Water bottles", img: "/photos/figma/prod-bottles.jpg", alt: "Branded water bottles printing", bg: null },
+  { name: "Company wears", img: "/photos/figma/prod-company.png", alt: "Corporate wear and uniform printing Nigeria", bg: "#6ebad6" },
+  { name: "Kids Clothings", img: "/photos/figma/prod-kids.jpg", alt: "Custom kids clothing printing", bg: "#2679f3" },
+  { name: "Sweatshirt", img: "/photos/figma/prod-sweat.jpg", alt: "Custom hoodie and sweatshirt printing Lagos", bg: null },
 ];
 
 export default function ProductsNew() {
@@ -17,7 +17,7 @@ export default function ProductsNew() {
         {items.map((p) => (
           <div className="prods-item" key={p.name}>
             <div className="prods-img" style={p.bg ? { background: p.bg } : undefined}>
-              <img src={p.img} alt={p.name} loading="lazy" />
+              <img src={p.img} alt={p.alt || p.name} loading="lazy" />
             </div>
             <p>{p.name}</p>
           </div>

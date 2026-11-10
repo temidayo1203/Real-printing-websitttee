@@ -12,12 +12,12 @@ const small = [
 ];
 
 const slides = [
-  { img: "/photos/figma/testimonial-photo.jpg", tag: "Signature apparel" },
+  { img: "/photos/figma/testimonial-photo.jpg", alt: "Real Printing customer review", tag: "Signature apparel" },
   { img: "/photos/figma/prod-tshirts.jpg", tag: "T-shirts" },
-  { img: "/photos/figma/prod-company.png", tag: "Corporate wear" },
+  { img: "/photos/figma/prod-company.png", alt: "Corporate branded apparel order", tag: "Corporate wear" },
   { img: "/photos/figma/prod-kids.jpg", tag: "Kids clothing" },
   { img: "/photos/figma/prod-sweat.jpg", tag: "Hoodies & sweatshirts" },
-  { img: "/photos/figma/prod-bags.png", tag: "Tote bags" },
+  { img: "/photos/figma/prod-bags.png", alt: "Custom printed tote bag order", tag: "Tote bags" },
 ];
 
 const bottom = [
