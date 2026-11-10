@@ -3,10 +3,9 @@ import { whatsappLink } from "../whatsapp";
 
 const nav = [
   ["Services", "#services"],
-  ["Portfolio", "#portfolio"],
+  ["About", "#about"],
   ["How it works", "#how-it-works"],
   ["Project estimator", "#project-estimator"],
-  ["About", "#about"],
   ["Contact", "#contact"],
 ];
 
