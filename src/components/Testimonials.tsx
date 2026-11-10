@@ -12,11 +12,11 @@ const small = [
 ];
 
 const slides = [
-  { img: "/photos/figma/testimonial-photo.png", tag: "Signature apparel" },
-  { img: "/photos/figma/prod-tshirts.png", tag: "T-shirts" },
+  { img: "/photos/figma/testimonial-photo.jpg", tag: "Signature apparel" },
+  { img: "/photos/figma/prod-tshirts.jpg", tag: "T-shirts" },
   { img: "/photos/figma/prod-company.png", tag: "Corporate wear" },
-  { img: "/photos/figma/prod-kids.png", tag: "Kids clothing" },
-  { img: "/photos/figma/prod-sweat.png", tag: "Hoodies & sweatshirts" },
+  { img: "/photos/figma/prod-kids.jpg", tag: "Kids clothing" },
+  { img: "/photos/figma/prod-sweat.jpg", tag: "Hoodies & sweatshirts" },
   { img: "/photos/figma/prod-bags.png", tag: "Tote bags" },
 ];
 

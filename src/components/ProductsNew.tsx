@@ -1,12 +1,12 @@
 import { whatsappLink } from "../whatsapp";
 
 const items = [
-  { name: "T- shirts", img: "/photos/figma/prod-tshirts.png", bg: null },
+  { name: "T- shirts", img: "/photos/figma/prod-tshirts.jpg", bg: null },
   { name: "Bags", img: "/photos/figma/prod-bags.png", bg: null },
-  { name: "Water bottles", img: "/photos/figma/prod-bottles.png", bg: null },
+  { name: "Water bottles", img: "/photos/figma/prod-bottles.jpg", bg: null },
   { name: "Company wears", img: "/photos/figma/prod-company.png", bg: "#6ebad6" },
-  { name: "Kids Clothings", img: "/photos/figma/prod-kids.png", bg: "#2679f3" },
-  { name: "Sweatshirt", img: "/photos/figma/prod-sweat.png", bg: null },
+  { name: "Kids Clothings", img: "/photos/figma/prod-kids.jpg", bg: "#2679f3" },
+  { name: "Sweatshirt", img: "/photos/figma/prod-sweat.jpg", bg: null },
 ];
 
 export default function ProductsNew() {
