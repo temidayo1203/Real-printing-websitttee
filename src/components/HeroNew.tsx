@@ -89,15 +89,15 @@ export default function HeroNew() {
       </form>
 
       <div className="tile tile-pink">
-        <img src="/photos/figma/hero-pink.jpg" alt="Custom printed white t-shirt" />
+        <img src="/photos/figma/hero-pink.png" alt="Custom printed white t-shirt" />
       </div>
       <img className="tile tile-cap" src="/photos/figma/hero-cap.jpg" alt="Embroidered black cap" />
       <div className="tile tile-blue">
-        <img src="/photos/figma/hero-camera.jpg" alt="Person holding a camera wearing a printed cap" />
+        <img src="/photos/figma/hero-camera.png" alt="Person holding a camera wearing a printed cap" />
       </div>
       <div className="tile tile-grad" />
-      <img className="tile tile-bottles" src="/photos/figma/hero-bottles.jpg" alt="Printed water bottles" />
-      <img className="tile tile-tote" src="/photos/figma/hero-tote.jpg" alt="Printed tote bag" />
+      <img className="tile tile-bottles" src="/photos/figma/hero-bottles.png" alt="Printed water bottles" />
+      <img className="tile tile-tote" src="/photos/figma/hero-tote.png" alt="Printed tote bag" />
       </div>
 
       <div className="hero-mobile">
@@ -157,9 +157,9 @@ export default function HeroNew() {
             then package &amp; deliver.
           </h1>
           <div className="hm-tiles" aria-hidden="true">
-            <div className="hm-tile pink"><img src="/photos/figma/hero-pink.jpg" alt="" /></div>
-            <div className="hm-tile blue"><img src="/photos/figma/hero-camera.jpg" alt="" /></div>
-            <div className="hm-tile"><img src="/photos/figma/hero-bottles.jpg" alt="" /></div>
+            <div className="hm-tile pink"><img src="/photos/figma/hero-pink.png" alt="" /></div>
+            <div className="hm-tile blue"><img src="/photos/figma/hero-camera.png" alt="" /></div>
+            <div className="hm-tile"><img src="/photos/figma/hero-bottles.png" alt="" /></div>
           </div>
           <p className="hm-tag">
             Custom apparel, corporate branding and promotional printing for businesses, creators and
