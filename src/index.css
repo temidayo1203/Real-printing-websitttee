@@ -115,10 +115,9 @@ button, input, select { font: inherit; }
 .tile-pink { left: 75px; top: 297px; width: 220px; height: 289px; background: #ff6d8d; border-radius: 10px; overflow: hidden; }
 .tile-cap  { left: -57px; top: 471px; width: 261px; height: 327px; border-radius: 10px; }
 .tile-blue { left: 1130px; top: 145px; width: 220px; height: 277px; background: #6ebad6; border-radius: 10px; overflow: hidden; }
-.tile-grad { left: 1258px; top: 295px; width: 220px; height: 240px; border-radius: 10px; background: linear-gradient(180deg, #ff9d58, #dfacd2); }
-.tile-bottles { left: 1139px; top: 242px; width: 221px; height: 393px; }
+.tile-bottles { left: 1060px; top: 210px; width: 240px; height: 345px; object-fit: contain; z-index: 3; }
 .tile-tote { left: 1284px; top: 321px; width: 236px; height: 185px; }
-.tile-tote, .tile-cap, .tile-bottles { border-radius: 10px; }
+.tile-tote, .tile-cap { border-radius: 10px; }
 
 /* ================= STATEMENT (Wireframe-39) ================= */
 .statement {

@@ -95,8 +95,7 @@ export default function HeroNew() {
       <div className="tile tile-blue">
         <img src="/photos/figma/hero-camera.png" alt="Person holding a camera wearing a printed cap" />
       </div>
-      <div className="tile tile-grad" />
-      <img className="tile tile-bottles" src="/photos/figma/hero-bottles.png" alt="Printed water bottles" />
+      <img className="tile tile-bottles" src="/photos/figma/bottles-cutout.png" alt="Printed water bottles" />
       <img className="tile tile-tote" src="/photos/figma/hero-tote.png" alt="Printed tote bag" />
       </div>
 
