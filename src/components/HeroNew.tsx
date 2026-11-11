@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { whatsappLink } from "../whatsapp";
 
 const nav = [
@@ -19,6 +19,43 @@ const SERVICES: [string, string][] = [
   ["Company wears", ICON('<path d="M6 3l-3.5 3 2 2.3L6 7.2V16h8V7.2l1.5 1.1 2-2.3L14 3h-2.5a1.5 1.5 0 0 1-3 0H6z"/><path d="M10 9v5M8.5 10.5h3"/>')],
 ];
 
+const EXAMPLES = [
+  "e.g 300 tote bags for our launch event",
+  "e.g 50 branded t-shirts for my team",
+  "e.g wedding souvenirs for 200 guests",
+  "e.g 100 custom mugs for our company",
+  "e.g hoodies for my clothing brand",
+];
+
+function useTypewriter() {
+  const [text, setText] = useState("");
+  useEffect(() => {
+    let i = 0, pos = 0, del = false, timer = 0;
+    const tick = () => {
+      const cur = EXAMPLES[i];
+      if (!del) {
+        pos += 1;
+        setText(cur.slice(0, pos));
+        timer = window.setTimeout(tick, pos === cur.length ? 2400 : 60);
+        if (pos === cur.length) del = true;
+      } else {
+        pos -= 1;
+        setText(cur.slice(0, pos));
+        if (pos === 0) {
+          del = false;
+          i = (i + 1) % EXAMPLES.length;
+          timer = window.setTimeout(tick, 500);
+        } else {
+          timer = window.setTimeout(tick, 30);
+        }
+      }
+    };
+    timer = window.setTimeout(tick, 800);
+    return () => clearTimeout(timer);
+  }, []);
+  return text;
+}
+
 const Arrow = () => (
   <svg width="16" height="16" viewBox="0 0 16 16"><path d="M6 3.5l4.5 4.5L6 12.5" fill="none" stroke="#9a9a9a" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
 );
@@ -27,6 +64,7 @@ export default function HeroNew() {
   const [request, setRequest] = useState("");
   const [menu, setMenu] = useState(false);
   const [svc, setSvc] = useState(true);
+  const typing = useTypewriter();
   const send = (e: React.FormEvent) => {
     e.preventDefault();
     const msg = request.trim() || "I'd like a custom print quote.";
@@ -77,7 +115,7 @@ export default function HeroNew() {
           <input
             id="ask2"
             type="text"
-            placeholder="e.g 300 tote bags for our launch event"
+            placeholder={typing}
             value={request}
             onChange={(e) => setRequest(e.target.value)}
           />
@@ -169,7 +207,7 @@ export default function HeroNew() {
               <input
                 id="ask-m"
                 type="text"
-                placeholder="e.g 300 tote bags for our launch event"
+                placeholder={typing}
                 value={request}
                 onChange={(e) => setRequest(e.target.value)}
               />
