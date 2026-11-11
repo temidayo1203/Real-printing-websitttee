@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const openQuoteDrawer = () =>
   window.dispatchEvent(new CustomEvent("rp:open-quote"));
@@ -131,6 +131,7 @@ export default function QuoteDrawer() {
   const [fileName, setFileName] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [sending, setSending] = useState(false);
+  const fileRef = useRef<HTMLInputElement>(null);
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -263,11 +264,19 @@ export default function QuoteDrawer() {
           />
 
           <label className="qd-label">Add your logo or design <em>(optional)</em></label>
-          <label className="qd-upload">
-            <input type="file" accept="image/*,.pdf" hidden onChange={(e) => { const f = e.target.files?.[0] || null; setFile(f); setFileName(f?.name || ""); }} />
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#666" strokeWidth="1.6" strokeLinecap="round"><path d="M9 12V3M5.5 6.5L9 3l3.5 3.5M3 14.5h12"/></svg>
-            {fileName ? fileName : "Upload image"}
-          </label>
+          <div className="qd-upload-wrap">
+            <label className="qd-upload">
+              <input ref={fileRef} type="file" accept="image/*,.pdf" hidden onChange={(e) => { const f = e.target.files?.[0] || null; setFile(f); setFileName(f?.name || ""); }} />
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#666" strokeWidth="1.6" strokeLinecap="round"><path d="M9 12V3M5.5 6.5L9 3l3.5 3.5M3 14.5h12"/></svg>
+              {fileName ? fileName : "Upload image"}
+            </label>
+            {fileName && (
+              <button
+                type="button" className="qd-file-x" aria-label="Remove file"
+                onClick={() => { setFile(null); setFileName(""); if (fileRef.current) fileRef.current.value = ""; }}
+              >✕</button>
+            )}
+          </div>
           <p className="qd-hint">{fileName ? "Got it — " : "Tip: "}you'll send the actual file on WhatsApp or email once we connect.</p>
 
           <label className="qd-label">Email <em>Optional</em></label>

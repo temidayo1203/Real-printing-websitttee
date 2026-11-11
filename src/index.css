@@ -711,11 +711,18 @@ button, input, select { font: inherit; }
   border: 1.5px dashed #b9b9c2; border-radius: 8px; background: none;
   font: inherit; font-size: 13px; font-weight: 500; color: #1b1b1f; cursor: pointer;
 }
+.qd-upload-wrap { position: relative; }
 .qd-upload {
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
   height: 90px; border: 1.5px dashed #b9b9c2; border-radius: 10px;
-  font-size: 13px; color: #555; cursor: pointer;
+  font-size: 13px; color: #555; cursor: pointer; padding: 0 40px; text-align: center;
 }
+.qd-file-x {
+  position: absolute; top: 8px; right: 8px; width: 26px; height: 26px;
+  border: none; border-radius: 50%; background: #ececef; color: #555;
+  font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+.qd-file-x:hover { background: #e23d3d; color: #fff; }
 .qd-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .qd-phone { display: flex; border: 1.5px solid #e3e3e6; border-radius: 8px; overflow: hidden; }
 .qd-phone.err { border-color: #e23d3d; }
