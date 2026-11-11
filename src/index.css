@@ -685,8 +685,10 @@ button, input, select { font: inherit; }
   font-size: 13px; cursor: pointer;
 }
 .qd-body { flex: 1; overflow-y: auto; padding: 24px; }
-.qd-label { display: block; font-size: 13px; font-weight: 600; color: #1b1b1f; margin: 18px 0 8px; }
-.qd-label:first-child { margin-top: 0; }
+.qd-label { display: block; font-size: 13px; font-weight: 600; color: #1b1b1f; margin: 22px 0 8px; }
+.qd-label:first-of-type { margin-top: 0; }
+.qd-grid2 .qd-label { margin-top: 0; }
+.qd-grid2 { margin-top: 22px; }
 .qd-label em, .qd-label b { font-weight: 400; color: #9a9aa0; font-style: normal; margin-left: 4px; }
 .qd-label b { color: #e23d3d; }
 .qd-body input[type="text"], .qd-body input[type="email"], .qd-body input[type="tel"], .qd-body input[type="date"], .qd-body select {
@@ -696,7 +698,7 @@ button, input, select { font: inherit; }
 .qd-body input:focus, .qd-body select:focus { border-color: #1b1b1f; }
 .qd-body .err { border-color: #e23d3d !important; }
 .qd-err { font-size: 12px; color: #e23d3d; margin: 6px 0 0; }
-.qd-hint { font-size: 11.5px; color: #9a9aa0; margin: 7px 0 0; }
+.qd-hint { font-size: 11.5px; color: #9a9aa0; margin: 8px 0 0; }
 .qd-item-row { display: flex; gap: 10px; margin-bottom: 10px; }
 .qd-item-row select { flex: 1; appearance: none; background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Cpath d='M3.5 5.5l3.5 3.5 3.5-3.5' fill='none' stroke='%23666' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 14px center; }
 .qd-step {
@@ -722,12 +724,16 @@ button, input, select { font: inherit; }
   font-size: 12px; font-weight: 600; color: #555; flex: none; border-right: 1.5px solid #e3e3e6;
 }
 .qd-phone input { border: none !important; border-radius: 0 !important; }
-.qd-channels { display: flex; gap: 8px; }
+.qd-channels { display: flex; gap: 10px; }
 .qd-channels button {
-  flex: 1; height: 42px; border: 1.5px solid #e3e3e6; border-radius: 8px;
-  background: #f7f7f9; font: inherit; font-size: 13px; color: #444; cursor: pointer;
+  flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
+  height: 50px; border: 1.5px solid transparent; border-radius: 10px;
+  background: #f1f1f4; font: inherit; font-size: 13px; font-weight: 500;
+  color: #1b1b1f; cursor: pointer; transition: border-color .15s;
 }
-.qd-channels button.on { background: #1b1b3e; color: #fff; border-color: #1b1b3e; }
+.qd-channels button .qd-dot { width: 7px; height: 7px; border-radius: 50%; background: transparent; flex: none; }
+.qd-channels button.on { border-color: #1b1b1f; background: #f1f1f4; }
+.qd-channels button.on .qd-dot { background: #22c55e; }
 .qd-foot { flex: none; padding: 16px 24px; border-top: 1px solid #eee; }
 .qd-send {
   width: 100%; height: 52px; border: none; border-radius: 8px;

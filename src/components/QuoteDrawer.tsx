@@ -11,9 +11,18 @@ const PRODUCTS = [
 type Item = { product: string; qty: number };
 
 const CHANNELS = [
-  { id: "whatsapp", label: "WhatsApp" },
-  { id: "phone", label: "Phone call" },
-  { id: "email", label: "Email" },
+  {
+    id: "whatsapp", label: "WhatsApp",
+    icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.9-1.4A10 10 0 1 0 12 2zm5.5 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.4-.7-2.9-1.2-4.7-4.1-4.9-4.3-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5s.8 1.9.8 2c.1.1.1.3 0 .5-.3.6-.7.8-.5 1.2.7 1.1 1.5 1.9 2.6 2.5.3.2.5.1.7-.1l.9-1c.2-.3.4-.2.7-.1l1.9.9c.3.1.5.2.5.3.1.2.1.6-.1 1.1z"/></svg>,
+  },
+  {
+    id: "phone", label: "Phone call",
+    icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.8a2 2 0 0 1-.4 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.8.7a2 2 0 0 1 1.7 2z"/></svg>,
+  },
+  {
+    id: "email", label: "Email",
+    icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d61f8c" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 7L2 7"/></svg>,
+  },
 ];
 
 export default function QuoteDrawer() {
@@ -143,7 +152,7 @@ export default function QuoteDrawer() {
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#666" strokeWidth="1.6" strokeLinecap="round"><path d="M9 12V3M5.5 6.5L9 3l3.5 3.5M3 14.5h12"/></svg>
             {fileName ? fileName : "Upload image"}
           </label>
-          {fileName && <p className="qd-hint">Got it — you can send the file on WhatsApp too.</p>}
+          <p className="qd-hint">{fileName ? "Got it — " : "Tip: "}you'll send the actual file on WhatsApp or email once we connect.</p>
 
           <label className="qd-label">Email <em>Optional</em></label>
           <input
@@ -183,7 +192,7 @@ export default function QuoteDrawer() {
                 key={c.id} type="button"
                 className={channel === c.id ? "on" : ""}
                 onClick={() => setChannel(c.id)}
-              >{c.label}</button>
+              ><i className="qd-dot" />{c.icon}{c.label}</button>
             ))}
           </div>
         </div>
