@@ -1,4 +1,4 @@
-import { whatsappLink } from "../whatsapp";
+import { openQuoteDrawer } from "./QuoteDrawer";
 
 export default function Statement() {
   return (
@@ -15,7 +15,7 @@ export default function Statement() {
           textiles, and flawless finishes that command attention.
         </span>
       </p>
-      <a className="btn-white" href={whatsappLink()} target="_blank" rel="noopener noreferrer">
+      <a className="btn-white" href="#quote" onClick={(e) => { e.preventDefault(); openQuoteDrawer(); }} target="_blank" rel="noopener noreferrer">
         Meet your printer
       </a>
     </section>

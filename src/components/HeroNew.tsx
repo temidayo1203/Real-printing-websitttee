@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { whatsappLink } from "../whatsapp";
+import { openQuoteDrawer } from "./QuoteDrawer";
 
 const nav = [
   ["Services", "#services"],
@@ -87,7 +88,7 @@ export default function HeroNew() {
         <button className="nav-burger" aria-label="Menu" onClick={() => setMenu((v) => !v)}>
           <span /><span /><span />
         </button>
-        <a className="btn-black" href={whatsappLink()} target="_blank" rel="noopener noreferrer">
+        <a className="btn-black" href="#quote" onClick={(e) => { e.preventDefault(); openQuoteDrawer(); }}>
           Get a quote
         </a>
       </header>
@@ -143,7 +144,7 @@ export default function HeroNew() {
             <span>eal Printing.ng</span>
           </a>
           <div className="hm-actions">
-            <a className="btn-black hm-quote" href={whatsappLink()} target="_blank" rel="noopener noreferrer">
+            <a className="btn-black hm-quote" href="#quote" onClick={(e) => { e.preventDefault(); openQuoteDrawer(); }}>
               Get a quote
             </a>
             <button className="nav-burger" aria-label="Menu" aria-expanded={menu} onClick={() => setMenu((v) => !v)}>
@@ -183,7 +184,7 @@ export default function HeroNew() {
               <a className="mnav-row" href="#project-estimator" onClick={() => setMenu(false)}><span>Project estimator</span><Arrow/></a>
               <a className="mnav-row" href="#contact" onClick={() => setMenu(false)}><span>Contact</span><Arrow/></a>
             </div>
-            <a className="mnav-cta" href={whatsappLink()} target="_blank" rel="noopener noreferrer">Get a quote</a>
+            <a className="mnav-cta" href="#quote" onClick={(e) => { e.preventDefault(); setMenu(false); openQuoteDrawer(); }}>Get a quote</a>
           </div>
         )}
         <div className="hm-body">

@@ -1,4 +1,4 @@
-import { whatsappLink } from "../whatsapp";
+import { openQuoteDrawer } from "./QuoteDrawer";
 
 const steps = [
   {
@@ -30,7 +30,7 @@ export default function Steps() {
             finished product in your hands this week.
           </p>
           <div className="row">
-            <a className="btn-yellow" href={whatsappLink()} target="_blank" rel="noopener noreferrer">
+            <a className="btn-yellow" href="#quote" onClick={(e) => { e.preventDefault(); openQuoteDrawer(); }} target="_blank" rel="noopener noreferrer">
               Get a quote
             </a>
             <a className="text-link" href="#services">
