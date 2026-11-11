@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 export const openQuoteDrawer = () =>
   window.dispatchEvent(new CustomEvent("rp:open-quote"));
 
+const CLOUD_NAME = "ov15qn49";
+const UPLOAD_PRESET = "Realprinting.ng";
+
 const PRODUCTS = [
   "T-shirts", "Hoodies / Sweatshirts", "Tote bags", "Caps", "Water bottles",
   "Mugs", "Business cards", "Stickers", "Posters", "Company wears", "Kids clothing", "Something else",
@@ -126,6 +129,8 @@ export default function QuoteDrawer() {
   const [neededBy, setNeededBy] = useState("");
   const [details, setDetails] = useState("");
   const [fileName, setFileName] = useState("");
+  const [file, setFile] = useState<File | null>(null);
+  const [sending, setSending] = useState(false);
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -162,8 +167,19 @@ export default function QuoteDrawer() {
     return Object.keys(e).length === 0;
   }
 
-  function submit() {
-    if (!validate()) return;
+  async function submit() {
+    if (!validate() || sending) return;
+    setSending(true);
+    let fileUrl = "";
+    if (file) {
+      try {
+        const fd = new FormData();
+        fd.append("file", file);
+        fd.append("upload_preset", UPLOAD_PRESET);
+        const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/auto/upload`, { method: "POST", body: fd });
+        fileUrl = (await res.json()).secure_url || "";
+      } catch { /* fall through — still send the text */ }
+    }
     const productLines = items
       .filter((it) => it.product)
       .map((it) => `• ${it.qty}× ${it.product}`)
@@ -176,7 +192,8 @@ export default function QuoteDrawer() {
       `Name: ${name}`,
       `WhatsApp: +234 ${phone}`,
       email && `Email: ${email}`,
-      fileName && `(I'll send my file: ${fileName})`,
+      fileUrl && `Design file: ${fileUrl}`,
+      !fileUrl && fileName && `(I'll send my file: ${fileName})`,
     ].filter(Boolean).join("\n");
 
     if (channel === "whatsapp") {
@@ -186,6 +203,7 @@ export default function QuoteDrawer() {
     } else {
       window.location.href = `mailto:printingreal18@gmail.com?subject=${encodeURIComponent("Quote request — " + name)}&body=${encodeURIComponent(msg)}`;
     }
+    setSending(false);
     setSent(true);
     setTimeout(() => { setSent(false); setOpen(false); }, 2200);
   }
@@ -243,7 +261,7 @@ export default function QuoteDrawer() {
 
           <label className="qd-label">Add your logo or design <em>(optional)</em></label>
           <label className="qd-upload">
-            <input type="file" accept="image/*,.pdf" hidden onChange={(e) => setFileName(e.target.files?.[0]?.name || "")} />
+            <input type="file" accept="image/*,.pdf" hidden onChange={(e) => { const f = e.target.files?.[0] || null; setFile(f); setFileName(f?.name || ""); }} />
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#666" strokeWidth="1.6" strokeLinecap="round"><path d="M9 12V3M5.5 6.5L9 3l3.5 3.5M3 14.5h12"/></svg>
             {fileName ? fileName : "Upload image"}
           </label>
@@ -292,8 +310,8 @@ export default function QuoteDrawer() {
           </div>
         </div>
         <footer className="qd-foot">
-          <button className="qd-send" onClick={submit}>
-            {sent ? "Sent — talk soon!" : "Send request"}
+          <button className="qd-send" onClick={submit} disabled={sending}>
+            {sent ? "Sent — talk soon!" : sending ? "Sending…" : "Send request"}
           </button>
         </footer>
       </aside>
