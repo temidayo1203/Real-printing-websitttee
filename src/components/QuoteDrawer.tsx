@@ -52,7 +52,19 @@ function DateField({ value, onChange }: { value: string; onChange: (v: string) =
   }, [open]);
 
   if (isMobile) {
-    return <input type="date" min={new Date().toISOString().split("T")[0]} value={value} onChange={(e) => onChange(e.target.value)} />;
+    return (
+      <div className="qd-date-wrap">
+        <div className={`qd-date-btn${value ? " has" : ""}`}>
+          {sel ? fmt(sel) : "dd/mm/yyyy"}
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#9a9aa0" strokeWidth="1.5" strokeLinecap="round"><rect x="2" y="3" width="12" height="11" rx="2"/><path d="M2 6.5h12M5.5 1.8v2.4M10.5 1.8v2.4"/></svg>
+        </div>
+        <input
+          className="qd-date-hidden" type="date"
+          min={new Date().toISOString().split("T")[0]}
+          value={value} onChange={(e) => onChange(e.target.value)}
+        />
+      </div>
+    );
   }
 
   const y = view.getFullYear(), m = view.getMonth();
@@ -274,7 +286,7 @@ export default function QuoteDrawer() {
               <button
                 key={c.id} type="button"
                 className={channel === c.id ? "on" : ""}
-                onClick={() => setChannel(c.id)}
+                onClick={() => setChannel(c.id)} aria-label={c.label}
               ><i className="qd-dot" />{c.icon}{c.label}</button>
             ))}
           </div>
