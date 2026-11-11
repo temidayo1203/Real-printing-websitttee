@@ -748,3 +748,37 @@ button, input, select { font: inherit; }
   .qd-head { padding: 20px; }
   .qd-body { padding: 20px; }
 }
+
+/* custom date picker */
+.qd-date-wrap { position: relative; }
+.qd-date-btn {
+  width: 100%; height: 48px; padding: 0 14px; border: 1.5px solid #e3e3e6; border-radius: 8px;
+  background: #fff; font: inherit; font-size: 14px; color: #9a9aa0; cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.qd-date-btn.has { color: #1b1b1f; }
+.qd-cal {
+  position: absolute; top: 54px; left: 0; z-index: 5; width: 300px;
+  background: #fff; border: 1px solid #e8e8ea; border-radius: 14px;
+  box-shadow: 0 12px 40px rgba(0,0,0,.14); padding: 16px;
+  animation: qdfade .15s;
+}
+.qd-cal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.qd-cal-head > span { font-weight: 700; font-size: 16px; color: #1b1b1f; }
+.qd-cal-head > div { display: flex; gap: 6px; }
+.qd-cal-head button {
+  width: 28px; height: 28px; border: none; border-radius: 6px; background: none;
+  font-size: 18px; color: #444; cursor: pointer; line-height: 1;
+}
+.qd-cal-head button:hover { background: #f1f1f4; }
+.qd-cal-dot { font-size: 22px; color: #999 !important; }
+.qd-cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+.qd-cal-grid b { text-align: center; font-size: 11.5px; font-weight: 600; color: #9a9aa0; padding: 6px 0; }
+.qd-cal-grid button {
+  height: 34px; border: none; border-radius: 8px; background: none;
+  font: inherit; font-size: 13.5px; color: #1b1b1f; cursor: pointer;
+}
+.qd-cal-grid button:hover:not(:disabled) { background: #f1f1f4; }
+.qd-cal-grid button.off { color: #c9c9cf; cursor: default; }
+.qd-cal-grid button.today { font-weight: 700; color: #1f6fe8; }
+.qd-cal-grid button.sel { background: #1b1b3e !important; color: #fff; font-weight: 600; }

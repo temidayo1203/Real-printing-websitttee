@@ -25,6 +25,89 @@ const CHANNELS = [
   },
 ];
 
+const DAYS = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
+
+function useMobile() {
+  const [m, setM] = useState(() => window.innerWidth <= 720);
+  useEffect(() => {
+    const fn = () => setM(window.innerWidth <= 720);
+    window.addEventListener("resize", fn);
+    return () => window.removeEventListener("resize", fn);
+  }, []);
+  return m;
+}
+
+function DateField({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+  const isMobile = useMobile();
+  const [open, setOpen] = useState(false);
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const sel = value ? new Date(value + "T00:00") : null;
+  const [view, setView] = useState(() => sel || new Date());
+
+  useEffect(() => {
+    if (!open) return;
+    const close = (e: MouseEvent) => { if (!(e.target as HTMLElement).closest(".qd-date-wrap")) setOpen(false); };
+    document.addEventListener("mousedown", close);
+    return () => document.removeEventListener("mousedown", close);
+  }, [open]);
+
+  if (isMobile) {
+    return <input type="date" min={new Date().toISOString().split("T")[0]} value={value} onChange={(e) => onChange(e.target.value)} />;
+  }
+
+  const y = view.getFullYear(), m = view.getMonth();
+  const first = new Date(y, m, 1);
+  const startOffset = (first.getDay() + 6) % 7; // Monday = 0
+  const daysInMonth = new Date(y, m + 1, 0).getDate();
+  const cells: (number | null)[] = [...Array(startOffset).fill(null), ...Array.from({ length: daysInMonth }, (_, i) => i + 1)];
+  const fmt = (d: Date) => `${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")}/${d.getFullYear()}`;
+  const monthName = view.toLocaleString("en", { month: "long" });
+
+  const pick = (d: number) => {
+    const dt = new Date(y, m, d);
+    onChange(`${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, "0")}-${String(dt.getDate()).padStart(2, "0")}`);
+    setOpen(false);
+  };
+
+  return (
+    <div className="qd-date-wrap">
+      <button type="button" className={`qd-date-btn${value ? " has" : ""}`} onClick={() => setOpen(!open)}>
+        {sel ? fmt(sel) : "dd/mm/yyyy"}
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#9a9aa0" strokeWidth="1.5" strokeLinecap="round"><rect x="2" y="3" width="12" height="11" rx="2"/><path d="M2 6.5h12M5.5 1.8v2.4M10.5 1.8v2.4"/></svg>
+      </button>
+      {open && (
+        <div className="qd-cal">
+          <div className="qd-cal-head">
+            <span>{monthName} {y}</span>
+            <div>
+              <button type="button" onClick={() => setView(new Date(y, m - 1, 1))}>‹</button>
+              <button type="button" className="qd-cal-dot" onClick={() => setView(new Date())}>•</button>
+              <button type="button" onClick={() => setView(new Date(y, m + 1, 1))}>›</button>
+            </div>
+          </div>
+          <div className="qd-cal-grid">
+            {DAYS.map((d) => <b key={d}>{d}</b>)}
+            {cells.map((d, i) => {
+              if (d === null) return <span key={i} />;
+              const dt = new Date(y, m, d); dt.setHours(0, 0, 0, 0);
+              const past = dt < today;
+              const isSel = sel && dt.getTime() === sel.getTime();
+              const isToday = dt.getTime() === today.getTime();
+              return (
+                <button
+                  key={i} type="button" disabled={past}
+                  className={`${past ? "off" : ""}${isSel ? " sel" : ""}${isToday && !isSel ? " today" : ""}`}
+                  onClick={() => pick(d)}
+                >{d}</button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function QuoteDrawer() {
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState<Item[]>([{ product: "", qty: 50 }]);
@@ -137,7 +220,7 @@ export default function QuoteDrawer() {
           <p className="qd-hint">A rough quantity is fine, we'd confirm sizes later.</p>
 
           <label className="qd-label">Needed by</label>
-          <input type="date" value={neededBy} onChange={(e) => setNeededBy(e.target.value)} />
+          <DateField value={neededBy} onChange={setNeededBy} />
           <p className="qd-hint">So we can tell you early if the date is tight</p>
 
           <label className="qd-label">Details</label>
