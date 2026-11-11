@@ -170,6 +170,7 @@ export default function QuoteDrawer() {
   async function submit() {
     if (!validate() || sending) return;
     setSending(true);
+    const waWin = channel === "whatsapp" ? window.open("", "_blank") : null;
     let fileUrl = "";
     if (file) {
       try {
@@ -197,7 +198,9 @@ export default function QuoteDrawer() {
     ].filter(Boolean).join("\n");
 
     if (channel === "whatsapp") {
-      window.open(`https://wa.me/2348108385033?text=${encodeURIComponent(msg)}`, "_blank", "noopener");
+      const url = `https://wa.me/2348108385033?text=${encodeURIComponent(msg)}`;
+      if (waWin) waWin.location.href = url;
+      else window.location.href = url;
     } else if (channel === "phone") {
       window.location.href = "tel:+2348108385033";
     } else {
