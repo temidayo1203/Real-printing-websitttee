@@ -43,6 +43,7 @@ function DateField({ value, onChange }: { value: string; onChange: (v: string) =
   const today = new Date(); today.setHours(0, 0, 0, 0);
   const sel = value ? new Date(value + "T00:00") : null;
   const [view, setView] = useState(() => sel || new Date());
+  const fmt = (d: Date) => `${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")}/${d.getFullYear()}`;
 
   useEffect(() => {
     if (!open) return;
@@ -72,7 +73,6 @@ function DateField({ value, onChange }: { value: string; onChange: (v: string) =
   const startOffset = (first.getDay() + 6) % 7; // Monday = 0
   const daysInMonth = new Date(y, m + 1, 0).getDate();
   const cells: (number | null)[] = [...Array(startOffset).fill(null), ...Array.from({ length: daysInMonth }, (_, i) => i + 1)];
-  const fmt = (d: Date) => `${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")}/${d.getFullYear()}`;
   const monthName = view.toLocaleString("en", { month: "long" });
 
   const pick = (d: number) => {
