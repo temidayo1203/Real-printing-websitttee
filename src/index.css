@@ -824,3 +824,7 @@ button, input, select { font: inherit; }
 .qd-cal-grid button.off { color: #c9c9cf; cursor: default; }
 .qd-cal-grid button.today { font-weight: 700; color: #1f6fe8; }
 .qd-cal-grid button.sel { background: #1b1b3e !important; color: #fff; font-weight: 600; }
+
+/* statement scroll reveal */
+.statement .big .w { color: rgba(255,255,255,.16); transition: color .35s ease; }
+.statement .big .w.on { color: #fff; }
