@@ -131,6 +131,7 @@ export default function QuoteDrawer() {
   const [fileName, setFileName] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [sending, setSending] = useState(false);
+  const [waving, setWaving] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -218,7 +219,11 @@ export default function QuoteDrawer() {
       <div className="qd-backdrop" onClick={() => setOpen(false)} />
       <aside className="qd-panel">
         <header className="qd-head">
-          <img className="qd-avatar" src="/photos/figma/avatar1.png" alt="Tunde" />
+          <img
+            className={`qd-avatar${waving ? " wave" : ""}`}
+            src="/photos/figma/avatar1.png" alt="Tunde"
+            onClick={() => { setWaving(true); setTimeout(() => setWaving(false), 700); }}
+          />
           <div>
             <h3>Hi, I'm Tunde</h3>
             <p>Printer at Realprinting.ng. Tell me what you need and I'll send you a quote</p>
