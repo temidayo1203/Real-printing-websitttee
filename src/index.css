@@ -798,39 +798,3 @@ button, input, select { font: inherit; }
 .qd-cal-grid button.off { color: #c9c9cf; cursor: default; }
 .qd-cal-grid button.today { font-weight: 700; color: #1f6fe8; }
 .qd-cal-grid button.sel { background: #1b1b3e !important; color: #fff; font-weight: 600; }
-
-/* ================= LOCATION PAGES ================= */
-.loc-page { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-.loc-hero { padding: 80px 0 48px; }
-.loc-eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #666; margin: 0 0 14px; }
-.loc-hero h1 { font-family: var(--slabo); font-weight: 400; font-size: 56px; line-height: 1.08; margin: 0 0 20px; max-width: 720px; }
-.loc-intro { font-size: 17px; line-height: 1.65; color: #444; max-width: 620px; margin: 0 0 30px; }
-.loc-cta-row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-.loc-est { font-size: 14px; font-weight: 600; color: #1b1b1f; text-decoration: underline; text-underline-offset: 4px; }
-.loc-services { padding: 20px 0 48px; }
-.loc-services h2 { font-family: var(--slabo); font-weight: 400; font-size: 34px; margin: 0 0 22px; }
-.loc-service-grid { display: flex; flex-wrap: wrap; gap: 10px; }
-.loc-chip { padding: 12px 20px; border: 1.5px solid #e3e3e6; border-radius: 10px; font-size: 14px; font-weight: 500; background: #fafafa; }
-.loc-who { font-size: 15px; line-height: 1.6; color: #666; max-width: 640px; margin-top: 24px; }
-.loc-points {
-  display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
-  padding: 8px 0 56px;
-}
-.loc-point { border: 1.5px solid #ededf0; border-radius: 14px; padding: 26px; }
-.loc-point h3 { font-size: 17px; font-weight: 700; margin: 0 0 8px; }
-.loc-point p { font-size: 14px; line-height: 1.6; color: #555; margin: 0; }
-.loc-cta {
-  background: #1b1b3e; color: #fff; border-radius: 18px;
-  padding: 52px 40px; text-align: center; margin-bottom: 60px;
-}
-.loc-cta h2 { font-family: var(--slabo); font-weight: 400; font-size: 36px; margin: 0 0 10px; }
-.loc-cta p { color: #c9cbe8; font-size: 15px; margin: 0 0 26px; }
-.loc-cta .btn-black { background: #e2f326; color: #1b1b1f; border: none; }
-@media (max-width: 720px) {
-  .loc-hero { padding: 52px 0 36px; }
-  .loc-hero h1 { font-size: 34px; }
-  .loc-services h2 { font-size: 26px; }
-  .loc-points { grid-template-columns: 1fr; }
-  .loc-cta { padding: 40px 24px; }
-  .loc-cta h2 { font-size: 26px; }
-}
