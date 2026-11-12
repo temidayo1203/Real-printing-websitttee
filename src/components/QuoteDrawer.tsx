@@ -240,7 +240,10 @@ export default function QuoteDrawer() {
               </select>
               <div className="qd-step">
                 <button type="button" onClick={() => setItem(i, { qty: Math.max(1, it.qty - 10) })}>−</button>
-                <span>{it.qty}</span>
+                <input
+                  type="number" min={1} value={it.qty || ""} placeholder="Qty"
+                  onChange={(e) => setItem(i, { qty: Math.max(1, parseInt(e.target.value) || 0) })}
+                />
                 <button type="button" onClick={() => setItem(i, { qty: it.qty + 10 })}>+</button>
               </div>
             </div>
