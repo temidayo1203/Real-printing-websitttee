@@ -218,10 +218,10 @@ export default function QuoteDrawer() {
       <div className="qd-backdrop" onClick={() => setOpen(false)} />
       <aside className="qd-panel">
         <header className="qd-head">
-          <img className="qd-avatar" src="/photos/figma/ceo-logo.png" alt="Real Printing" />
+          <img className="qd-avatar" src="/photos/figma/avatar1.png" alt="Tunde" />
           <div>
-            <h3>Hi, I'm Oladipupo Arikawe</h3>
-            <p>CEO at Realprinting.ng. Tell me what you need and I'll send you a quote</p>
+            <h3>Hi, I'm Tunde</h3>
+            <p>Printer at Realprinting.ng. Tell me what you need and I'll send you a quote</p>
             <span className="qd-live"><i /> I reply within an hour</span>
           </div>
           <button className="qd-x" aria-label="Close" onClick={() => setOpen(false)}>✕</button>
