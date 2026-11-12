@@ -120,8 +120,9 @@ button, input, select { font: inherit; }
 .tile-tote, .tile-cap { border-radius: 10px; }
 
 /* ================= STATEMENT (Wireframe-39) ================= */
+.statement-wrap { position: relative; height: 300vh; }
 .statement {
-  position: relative; background: var(--navy); min-height: 741px;
+  position: sticky; top: 0; background: var(--navy); min-height: 741px; height: 100vh;
 }
 .eyebrow {
   position: absolute; left: 7.29%; top: 109px;
@@ -517,7 +518,8 @@ button, input, select { font: inherit; }
 
 /* ---------- Statement mobile fix ---------- */
 @media (max-width: 900px) {
-  .statement { min-height: 0; padding: 72px 24px 80px; display: flex; flex-direction: column; }
+  .statement-wrap { height: 220vh; }
+  .statement { min-height: 0; height: 100vh; padding: 72px 24px 80px; display: flex; flex-direction: column; justify-content: center; }
   .eyebrow { position: static; margin-bottom: 40px; }
   .statement .big {
     position: static; width: 100%;

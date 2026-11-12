@@ -5,7 +5,7 @@ const TEXT =
   "We bring your custom shirts and merch to life with vibrant, durable prints, premium textiles, and flawless finishes that command attention.";
 
 export default function Statement() {
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const maxLit = useRef(0);
   const words = TEXT.split(" ");
 
@@ -17,7 +17,7 @@ export default function Statement() {
       raf = 0;
       const r = el.getBoundingClientRect();
       const vh = window.innerHeight;
-      const progress = Math.min(1, Math.max(0, (vh - r.top) / (vh * 0.7 + r.height * 0.4)));
+      const progress = Math.min(1, Math.max(0, -r.top / (r.height - vh)));
       maxLit.current = Math.max(maxLit.current, Math.round(progress * words.length));
       el.querySelectorAll<HTMLElement>(".w").forEach((w, i) => {
         w.classList.toggle("on", i < maxLit.current);
@@ -35,7 +35,8 @@ export default function Statement() {
   }, []);
 
   return (
-    <section className="statement" id="about" ref={ref}>
+    <div className="statement-wrap" ref={ref}>
+    <section className="statement" id="about">
       <div className="eyebrow">
         <span className="sq" />
         <span>ENDLESS POSSIBILITIES</span>
@@ -53,5 +54,6 @@ export default function Statement() {
         Meet your printer
       </a>
     </section>
+    </div>
   );
 }
