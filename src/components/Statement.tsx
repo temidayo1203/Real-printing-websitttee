@@ -6,6 +6,7 @@ const TEXT =
 
 export default function Statement() {
   const ref = useRef<HTMLElement>(null);
+  const maxLit = useRef(0);
   const words = TEXT.split(" ");
 
   useEffect(() => {
@@ -16,11 +17,10 @@ export default function Statement() {
       raf = 0;
       const r = el.getBoundingClientRect();
       const vh = window.innerHeight;
-      // progress: 0 when section top hits bottom of viewport, 1 when its middle reaches ~40% height
       const progress = Math.min(1, Math.max(0, (vh - r.top) / (vh * 0.7 + r.height * 0.4)));
-      const lit = Math.round(progress * words.length);
+      maxLit.current = Math.max(maxLit.current, Math.round(progress * words.length));
       el.querySelectorAll<HTMLElement>(".w").forEach((w, i) => {
-        w.classList.toggle("on", i < lit);
+        w.classList.toggle("on", i < maxLit.current);
       });
     };
     const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
@@ -45,7 +45,7 @@ export default function Statement() {
         <span className="lime">Not just Ink on Fabric.</span>
         <span className="dim">
           {words.map((w, i) => (
-            <span className="w" key={i}>{w}&nbsp;</span>
+            <span className="w" key={i}>{w} </span>
           ))}
         </span>
       </p>
