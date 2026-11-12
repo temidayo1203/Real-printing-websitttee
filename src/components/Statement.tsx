@@ -6,7 +6,6 @@ const TEXT =
 
 export default function Statement() {
   const ref = useRef<HTMLDivElement>(null);
-  const maxLit = useRef(0);
   const words = TEXT.split(" ");
 
   useEffect(() => {
@@ -18,9 +17,9 @@ export default function Statement() {
       const r = el.getBoundingClientRect();
       const vh = window.innerHeight;
       const progress = Math.min(1, Math.max(0, -r.top / (r.height - vh)));
-      maxLit.current = Math.max(maxLit.current, Math.round(progress * words.length));
+      const lit = Math.round(progress * words.length);
       el.querySelectorAll<HTMLElement>(".w").forEach((w, i) => {
-        w.classList.toggle("on", i < maxLit.current);
+        w.classList.toggle("on", i < lit);
       });
     };
     const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
