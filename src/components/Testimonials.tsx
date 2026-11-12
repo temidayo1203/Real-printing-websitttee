@@ -7,7 +7,7 @@ const small = [
       "Real Printing delivered exactly what we envisioned. The quality, attention to detail, and turnaround time were impressive.",
     name: "Oladipupo Arikawe",
     role: "CEO",
-    avatar: "/photos/figma/avatar1.png",
+    avatar: "/photos/figma/ceo-logo.png",
   },
 ];
 
