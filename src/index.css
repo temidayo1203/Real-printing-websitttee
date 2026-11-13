@@ -71,6 +71,8 @@ button, input, select { font: inherit; }
 .topbar.on-dark .nav-links a { color: rgba(255,255,255,.75); }
 .topbar.on-dark .nav-links a:hover { color: #fff; }
 .topbar.on-dark .btn-black { background: #e2f326; color: #1b1b1f; }
+.topbar.on-dark .nav-burger { background: rgba(255,255,255,.16); }
+.topbar.on-dark .nav-burger span { background: #fff; }
 .wordmark {
   position: absolute; left: 61px; top: 31px;
   display: flex; align-items: center; gap: 1px;
@@ -522,6 +524,7 @@ button, input, select { font: inherit; }
   }
   .hm-top.on-dark .wordmark span { color: #fff; }
   .hm-top.on-dark .wordmark .rmark { filter: invert(1); }
+  .hm-top.on-dark .nav-burger { background: rgba(255,255,255,.16); }
   .hm-top.on-dark .nav-burger span { background: #fff; }
   .hm-top.on-dark .hm-quote { background: #e2f326; color: #1b1b1f; }
   .hm-top .wordmark { position: static; }
