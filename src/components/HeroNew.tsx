@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { whatsappLink } from "../whatsapp";
 import { openQuoteDrawer } from "./QuoteDrawer";
 
+
 const nav = [
   ["Services", "#services"],
   ["About", "#about"],
@@ -30,6 +31,33 @@ const EXAMPLES = [
 
 function useTypewriter() {
   const [text, setText] = useState("");
+  useEffect(() => {
+    const bars = Array.from(document.querySelectorAll<HTMLElement>(".topbar, .hm-top"));
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const scrolled = window.scrollY > 30;
+      let dark = false;
+      document.querySelectorAll(".statement-wrap, .site-footer").forEach((d) => {
+        const r = d.getBoundingClientRect();
+        if (r.top < 72 && r.bottom > 72) dark = true;
+      });
+      bars.forEach((b) => {
+        b.classList.toggle("scrolled", scrolled);
+        b.classList.toggle("on-dark", dark);
+      });
+    };
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
+
   useEffect(() => {
     let i = 0, pos = 0, del = false, timer = 0;
     const tick = () => {
@@ -74,7 +102,6 @@ export default function HeroNew() {
 
   return (
     <section className="hero-n" id="top">
-      <div className="hero-stage">
       <header className="topbar">
         <a className="wordmark" href="#top">
           <img src="/photos/figma/logo-mark.svg" alt="" className="rmark" />
@@ -92,6 +119,7 @@ export default function HeroNew() {
           Get a quote
         </a>
       </header>
+      <div className="hero-stage">
 
       <h1 className="h-left">
         You dream it,
