@@ -33,10 +33,13 @@ function useTypewriter() {
   const [text, setText] = useState("");
   useEffect(() => {
     const bars = Array.from(document.querySelectorAll<HTMLElement>(".topbar, .hm-top"));
-    let raf = 0;
+    let raf = 0, lastY = window.scrollY;
     const update = () => {
       raf = 0;
-      const scrolled = window.scrollY > 30;
+      const y = window.scrollY;
+      const scrolled = y > 30;
+      const hide = y > 140 && y > lastY;   // scrolling down past threshold
+      lastY = y;
       let dark = false;
       document.querySelectorAll(".statement-wrap, .site-footer").forEach((d) => {
         const r = d.getBoundingClientRect();
@@ -45,6 +48,7 @@ function useTypewriter() {
       bars.forEach((b) => {
         b.classList.toggle("scrolled", scrolled);
         b.classList.toggle("on-dark", dark);
+        b.classList.toggle("nav-hide", hide);
       });
     };
     const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };

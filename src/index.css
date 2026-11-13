@@ -51,8 +51,9 @@ button, input, select { font: inherit; }
 .topbar {
   position: fixed; top: 0; left: 0; right: 0; z-index: 50;
   display: flex; align-items: center; height: 80px;
-  transition: background .3s, box-shadow .3s, height .3s;
+  transition: background .3s, box-shadow .3s, height .3s, transform .35s ease;
 }
+.topbar.nav-hide { transform: translateY(-100%); }
 .topbar.scrolled {
   height: 64px; background: rgba(255,255,255,.85);
   backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
@@ -507,8 +508,9 @@ button, input, select { font: inherit; }
   .hm-top {
     position: fixed; top: 0; left: 0; right: 0; z-index: 50;
     display: flex; align-items: center; justify-content: space-between;
-    padding: 14px 22px; transition: background .3s, box-shadow .3s;
+    padding: 14px 22px; transition: background .3s, box-shadow .3s, transform .35s ease;
   }
+  .hm-top.nav-hide { transform: translateY(-100%); }
   .hm-top.scrolled {
     background: rgba(255,255,255,.88);
     backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
