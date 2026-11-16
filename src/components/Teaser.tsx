@@ -59,7 +59,6 @@ export default function Teaser() {
           </>
         )}
       </div>
-      <img className="teaser-img" src="/photos/figma/designer.png" alt="Preview of the upcoming Real Printing online designer" />
     </section>
   );
 }
