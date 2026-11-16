@@ -404,7 +404,8 @@ button, input, select { font: inherit; }
   .calc { flex-direction: column; }
   .summary { width: 100%; border-left: none; border-top: 1px solid var(--line); }
   .prods-grid, .prods-cta { width: 100% - 60px; width: calc(100% - 60px); }
-  .teaser { flex-direction: column; gap: 48px; padding: 72px 24px; text-align: left; }
+  .teaser { flex-direction: column; gap: 48px; padding: 72px 24px; text-align: center; }
+  .teaser-copy .wait-reveal, .teaser-copy .wait-form { margin-left: auto; margin-right: auto; }
   .teaser-copy { width: 100%; }
   .teaser-copy { width: 100%; }
   .teaser-img { max-width: 100%; margin: 0 auto; }
