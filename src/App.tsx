@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import HeroNew from "./components/HeroNew";
 import Statement from "./components/Statement";
 import ProductsNew from "./components/ProductsNew";
@@ -11,6 +12,13 @@ import Legal from "./components/Legal";
 import Footer from "./components/Footer";
 
 export default function App() {
+  const [, tick] = useState(0);
+  useEffect(() => {
+    const onHash = () => tick((n) => n + 1);
+    window.addEventListener("hashchange", onHash);
+    return () => window.removeEventListener("hashchange", onHash);
+  }, []);
+
   const isLegal = window.location.hash.startsWith("#/legal");
 
   if (isLegal) {
