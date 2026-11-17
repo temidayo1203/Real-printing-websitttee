@@ -14,18 +14,12 @@ export default function Teaser() {
     if (!email) return;
     setBusy(true);
     try {
-      await fetch(`https://formsubmit.co/ajax/${WAITLIST_EMAIL}`, {
+      const r = await fetch("/api/waitlist", {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          email,
-          _subject: "New waitlist signup — Real Printing",
-          _autoresponse:
-            "Hi! Temidayo here from Real Printing.ng — thanks for joining the waitlist. " +
-            "You're on the early list, so you'll be the first to know when our online designer goes live. " +
-            "Need something printed in the meantime? Reply to this email or WhatsApp us at +234 810 838 5033.",
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
       });
+      if (!r.ok) throw new Error("waitlist failed");
       setSent(true);
     } catch {
       window.location.href = `mailto:${WAITLIST_EMAIL}?subject=Waitlist signup&body=Please add ${encodeURIComponent(email)} to the waitlist.`;
