@@ -22,6 +22,10 @@ export default function App() {
     );
   }
 
+  if (window.location.hash === "#/quote") {
+    return <QuotePage />;
+  }
+
   return (
     <>
       <main>
