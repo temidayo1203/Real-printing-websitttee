@@ -870,3 +870,16 @@ button, input, select { font: inherit; }
 /* statement scroll reveal */
 .statement .big .w { color: rgba(255,255,255,.16); transition: color .35s ease; }
 .statement .big .w.on { color: #fff; }
+
+/* quote page mode */
+.qd-page { min-height: 100vh; background: #f6f6f8; }
+.qd-page-panel { max-width: 560px; margin: 0 auto; padding: 48px 20px 80px; }
+.qd-panel.page {
+  position: relative; inset: auto; width: 100%; height: auto; max-height: none;
+  border-radius: 16px; overflow: hidden; animation: none;
+  box-shadow: 0 8px 40px rgba(0,0,0,.08);
+}
+.qd-panel.page .qd-body { overflow: visible; }
+@media (max-width: 720px) {
+  .qd-page-panel { padding: 24px 14px 60px; }
+}

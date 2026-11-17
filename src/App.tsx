@@ -6,7 +6,7 @@ import Estimator from "./components/Estimator";
 import Steps from "./components/Steps";
 import Faq from "./components/Faq";
 import Teaser from "./components/Teaser";
-import QuoteDrawer from "./components/QuoteDrawer";
+import QuotePage from "./components/QuoteDrawer";
 import Legal from "./components/Legal";
 import Footer from "./components/Footer";
 
@@ -17,7 +17,6 @@ export default function App() {
     return (
       <>
         <Legal />
-        <QuoteDrawer />
       <Footer />
       </>
     );
@@ -35,7 +34,6 @@ export default function App() {
         <Faq />
         <Teaser />
       </main>
-      <QuoteDrawer />
       <Footer />
     </>
   );
