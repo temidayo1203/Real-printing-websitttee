@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-import { whatsappLink } from "../whatsapp";
 
 const methods = ["DTF transfer", "Screen print", "Embroidery", "Sublimation"];
 const products = [
@@ -149,7 +148,7 @@ export default function Estimator() {
             <strong>{fmt(calc.total)}</strong>
           </div>
           <p className="spiece">{fmt(calc.perPiece)} per piece</p>
-          <a className="pay" href={whatsappLink(`Hi Real Printing! Quote: ${qty}x ${plural}, ${method}, total ${fmt(calc.total)}.`)} target="_blank" rel="noopener noreferrer">
+          <a className="pay" href="#/signup">
             Continue to payment
           </a>
         </div>
