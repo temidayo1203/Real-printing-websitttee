@@ -9,6 +9,7 @@ import Faq from "./components/Faq";
 import Teaser from "./components/Teaser";
 import QuotePage from "./components/QuoteDrawer";
 import Legal from "./components/Legal";
+import Auth from "./components/Auth";
 import Footer from "./components/Footer";
 
 export default function App() {
@@ -33,6 +34,8 @@ export default function App() {
   if (window.location.hash === "#/quote") {
     return <QuotePage />;
   }
+  if (window.location.hash === "#/login") return <Auth mode="login" />;
+  if (window.location.hash === "#/signup") return <Auth mode="signup" />;
 
   return (
     <>
