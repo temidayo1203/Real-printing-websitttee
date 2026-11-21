@@ -179,7 +179,7 @@ button, input, select { font: inherit; }
 .prods-cta {
   width: min(1240px, 100% - 200px); margin: 130px auto 0;
 }
-.prods-cta h3 { font-size: 30px; font-weight: 500; margin: 0 0 14px; letter-spacing: -0.5px; }
+.prods-cta h3 { font-family: var(--serif); font-size: 30px; font-weight: 500; margin: 0 0 14px; letter-spacing: -0.5px; }
 .prods-cta > div > p { font-size: 16px; line-height: 25.6px; color: #9e9e9e; max-width: 551px; margin: 0 0 28px; }
 .prods-cta a {
   display: inline-flex; align-items: center; gap: 8px;
@@ -496,7 +496,7 @@ button, input, select { font: inherit; }
   background: #fff; border: 0.8px solid rgba(0,0,0,0.1); border-radius: 10px;
 }
 .legal-num { font-family: var(--serif); font-size: 22px; color: #bcbcbc; flex: none; }
-.legal-row h3 { font-size: 16px; font-weight: 500; margin: 0 0 8px; }
+.legal-row h3 { font-family: var(--serif); font-size: 16px; font-weight: 500; margin: 0 0 8px; }
 .legal-row p { font-size: 14px; line-height: 1.6; color: #636363; margin: 0; }
 
 /* ---------- Socials ---------- */
@@ -657,7 +657,7 @@ button, input, select { font: inherit; }
 .step-item { display: flex; gap: 18px; padding: 34px 44px; border-bottom: 1px solid var(--line); flex: 1; align-items: flex-start; }
 .step-item:last-child { border-bottom: none; }
 .step-num { font-size: 13px; font-weight: 700; color: var(--ink-faint); padding-top: 6px; }
-.step-item h3 { font-size: 26px; margin: 0 0 8px; letter-spacing: -0.02em; font-weight: 700; }
+.step-item h3 { font-family: var(--serif); font-size: 26px; margin: 0 0 8px; letter-spacing: -0.02em; font-weight: 700; }
 .step-item h3 span { padding: 0 8px; border-radius: 6px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
 .hl-orange span { background: #ffb25c; }
 .hl-pink span { background: #ffb3a7; }
@@ -975,7 +975,7 @@ button, input, select { font: inherit; }
 }
 .auth-cards figcaption i { width: 6px; height: 6px; border-radius: 50%; background: #1b1b1f; flex: none; }
 .auth-pitch { padding: 30px 40px 46px; text-align: center; color: #fff; }
-.auth-pitch h2 { font-size: 21px; font-weight: 700; margin: 0 0 10px; }
+.auth-pitch h2 { font-family: var(--serif); font-size: 21px; font-weight: 700; margin: 0 0 10px; }
 .auth-pitch p { font-size: 13px; line-height: 1.6; color: rgba(255,255,255,.85); max-width: 380px; margin: 0 auto; }
 @media (max-width: 860px) {
   .auth { flex-direction: column; }
