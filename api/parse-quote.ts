@@ -29,8 +29,8 @@ export default async function handler(req: any, res: any) {
   const text = String(req.body?.text || "").slice(0, 800).trim();
   if (!text) return res.status(400).json({ error: "No text" });
 
-  try {
-    const r = await fetch(
+  const callGemini = () =>
+    fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${GEMINI_API_KEY}`,
       {
         method: "POST",
@@ -41,6 +41,13 @@ export default async function handler(req: any, res: any) {
         }),
       }
     );
+
+  try {
+    let r = await callGemini();
+    if (!r.ok && r.status >= 500 || r.status === 429) {
+      await new Promise((done) => setTimeout(done, 1500));
+      r = await callGemini();
+    }
     if (!r.ok) return res.status(502).json({ error: "Gemini request failed" });
     const data = await r.json();
     const raw = data?.candidates?.[0]?.content?.parts?.[0]?.text || "{}";
