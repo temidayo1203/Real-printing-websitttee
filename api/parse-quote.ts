@@ -4,7 +4,7 @@
 //   GEMINI_API_KEY — from aistudio.google.com
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY || "";
-const MODEL = "gemini-3.8-flash";
+const MODEL = "gemini-2.5-flash";
 
 const PROMPT = `You are a parser for a Nigerian custom-printing business. Extract print-job details from the customer's message and reply with ONLY a JSON object, no prose, no markdown.
 
