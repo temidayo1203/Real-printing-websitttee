@@ -41,8 +41,9 @@ function buildReply(p: Parsed): string {
 
 const CHAT_REPLY = "I'm your print-quote assistant — tell me what you'd like printed and I'll price it instantly. What are you looking to print?";
 const looksLikeQuote = (t: string) =>
-  /\d|print|embroider|custom|logo|brand|order|deliver|merch|produce|made|supply|souvenir/.test(t) ||
-  products.some((p) => p.keys.some((k) => t.includes(" " + k)));
+  /\d/.test(t) ||
+  (/\b(need|want|order|produce|make|supply|deliver|print|embroider|get|quote)\b/.test(t) &&
+    products.some((p) => p.keys.some((k) => t.includes(" " + k))));
 
 function parseRequest(text: string): Parsed {
   const t = " " + text.toLowerCase().replace(/[-–—]/g, " ") + " ";
