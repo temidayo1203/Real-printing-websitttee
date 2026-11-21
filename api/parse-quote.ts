@@ -16,7 +16,8 @@ Schema:
   "colours": integer 1-8 ink colours per design ("full colour" = 4), or null,
   "method": one of "DTF transfer" | "Screen print" | "Embroidery" | "Sublimation" | null,
   "city": one of "Lagos" | "Abuja" | "Port Harcourt" | "Ibadan" | "Benin City" | "Enugu" | "Kano" | "Kaduna" | "Ilorin" | "Jos" | "Abeokuta" | "Warri" | "Onitsha" | "Uyo" | "Calabar" | null,
-  "assumed": array of strings naming every field you guessed because the message did not state it (e.g. "Colours: 1")
+  "assumed": array of strings naming every field you guessed because the message did not state it (e.g. "Colours: 1"),
+  "reply": a short friendly message (1-2 sentences, max ~30 words) written to the customer. Warm and confident, like a helpful print expert — confirm what you understood in plain words, and if anything was assumed invite them to adjust it on the left. No emojis, no prices, no greeting like "Hi".
 }
 
 Rules: use null for anything not stated. "t-shirts"/"tees"/"polos" = T-shirt; "hoodies"/"sweatshirts" = Hoodie; "caps"/"hats"/"snapbacks" = Cap; "totes"/"bags" = Tote bag; "mugs"/"cups"/"tumblers" = Mug. Embroidery keyword implies method Embroidery. Nearby Nigeria city names map to the closest list entry.`;
@@ -51,6 +52,7 @@ export default async function handler(req: any, res: any) {
       method: parsed.method ?? null,
       city: parsed.city ?? null,
       assumed: Array.isArray(parsed.assumed) ? parsed.assumed.slice(0, 6).map(String) : [],
+      reply: typeof parsed.reply === "string" ? parsed.reply.slice(0, 300) : null,
     });
   } catch {
     return res.status(502).json({ error: "Parse failed" });

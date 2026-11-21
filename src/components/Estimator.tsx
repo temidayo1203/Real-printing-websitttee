@@ -32,7 +32,12 @@ const examples = [
   "12 branded caps with embroidery for my team, deliver to Port Harcourt",
 ];
 
-type Parsed = { product: Product; qty: number; locations: number; colours: number; method: string; city: string; assumed: string[] };
+type Parsed = { product: Product; qty: number; locations: number; colours: number; method: string; city: string; assumed: string[]; reply?: string };
+
+function buildReply(p: Parsed): string {
+  const guess = p.assumed.length ? " I've marked what I guessed — adjust anything on the left and the price updates." : " Adjust anything on the left and the price updates live.";
+  return `Got it — ${p.qty} ${p.product.name.toLowerCase()}s, ${p.method.toLowerCase()}, delivered to ${p.city}. Here's your instant estimate.${guess}`;
+}
 
 function parseRequest(text: string): Parsed {
   const t = " " + text.toLowerCase().replace(/[-–—]/g, " ") + " ";
@@ -68,7 +73,8 @@ function parseRequest(text: string): Parsed {
   const city = cities.find((c) => t.includes(c.toLowerCase())) || "Lagos";
   if (!cities.some((c) => t.includes(c.toLowerCase()))) assumed.push("Deliver to: Lagos");
 
-  return { product, qty, locations, colours, method, city, assumed };
+  const parsed = { product, qty, locations, colours, method, city, assumed };
+  return { ...parsed, reply: buildReply(parsed) };
 }
 
 const thinkSteps = ["Reading your request", "Choosing the best print method", "Calculating your price"];
@@ -88,6 +94,7 @@ export default function Estimator() {
     method: methods.includes(d.method) ? d.method : local.method,
     city: cities.includes(d.city) ? d.city : local.city,
     assumed: Array.isArray(d.assumed) && d.assumed.length ? d.assumed : local.assumed,
+    reply: typeof d.reply === "string" && d.reply.trim() ? d.reply : undefined,
   });
 
   const run = (value: string) => {
@@ -110,7 +117,7 @@ export default function Estimator() {
     Promise.all([
       Promise.race([remoteDone, new Promise((r) => setTimeout(r, 5000))]),
       new Promise((r) => setTimeout(r, 2200)),
-    ]).then(() => { setP(parsed); setPhase("result"); });
+    ]).then(() => { setP({ ...parsed, reply: parsed.reply || buildReply(parsed) }); setPhase("result"); });
   };
 
   const update = (patch: Partial<Parsed>) => setP((prev) => (prev ? { ...prev, ...patch } : prev));
@@ -190,6 +197,12 @@ export default function Estimator() {
 
       {phase === "result" && p && calc && (
         <>
+          <div className="aq-ai">
+            <span className="aq-ai-icon">
+              <svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M6 0l1.4 4.6L12 6 7.4 7.4 6 12 4.6 7.4 0 6l4.6-1.4L6 0z" fill="#2563eb"/></svg>
+            </span>
+            <p>{p.reply}</p>
+          </div>
           <div className="aq-card">
             <div className="aq-left">
               <span className="aq-col-title">What we understood</span>
