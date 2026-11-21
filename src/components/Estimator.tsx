@@ -39,7 +39,7 @@ function buildReply(p: Parsed): string {
   return `Got it — ${p.qty} ${p.product.name.toLowerCase()}s, ${p.method.toLowerCase()}, delivered to ${p.city}. Here's your instant estimate.${guess}`;
 }
 
-const CHAT_REPLY = "I'm your print-quote assistant — tell me what you'd like printed and I'll price it instantly. For example: '50 t-shirts for my team in Lagos'.";
+const CHAT_REPLY = "I'm your print-quote assistant — tell me what you'd like printed and I'll price it instantly. What are you looking to print?";
 const looksLikeQuote = (t: string) =>
   /\d|print|embroider|custom|logo|brand|order|deliver|merch|produce|made|supply|souvenir/.test(t) ||
   products.some((p) => p.keys.some((k) => t.includes(" " + k)));

@@ -18,7 +18,17 @@ Schema:
   "method": one of "DTF transfer" | "Screen print" | "Embroidery" | "Sublimation" | null,
   "city": one of "Lagos" | "Abuja" | "Port Harcourt" | "Ibadan" | "Benin City" | "Enugu" | "Kano" | "Kaduna" | "Ilorin" | "Jos" | "Abeokuta" | "Warri" | "Onitsha" | "Uyo" | "Calabar" | null,
   "assumed": array of strings naming every field you guessed because the message did not state it (e.g. "Colours: 1"),
-  "reply": a short friendly message (1-2 sentences, max ~40 words) written to the customer, warm and helpful. For "quote" intent: confirm what you understood in plain words and invite them to adjust anything on the left. For "chat" intent: answer their question naturally — you can talk about printing, products, pricing basics, delivery (we deliver across Nigeria) or timelines; for anything off-topic, answer briefly and steer back to how you can help with their printing needs. No emojis.
+  "reply": a short friendly message (1-2 sentences + one follow-up question, max ~50 words) written to the customer, warm and helpful. For "quote" intent: confirm what you understood in plain words and end by asking about any detail they didn't specify (e.g. quantity or print method). For "chat" intent: answer their question using ONLY the facts below — never invent numbers or policies — then end with a relevant follow-up question that moves them toward ordering. For anything off-topic or not covered by the facts, say you'd love to help with printing and ask what they'd like printed. No emojis.
+
+Facts about Real Printing:
+- In-house design team can create print-ready artwork — customers do not need their own design.
+- Products: t-shirts, hoodies, caps, tote bags, mugs, water bottles, business cards, stickers, posters, uniforms and more.
+- Bulk orders get volume discounts.
+- Delivery: nationwide across Nigeria, tracked, 3-5 business days after production.
+- Production: 48-72 hours standard turnaround once artwork is approved; rush available.
+- Printing methods: DTF transfer, screen print, embroidery, sublimation, vinyl (HTV) — we recommend the best method for the fabric and budget.
+- Customers may supply their own garments for print-only pricing.
+- Contact: WhatsApp +234 810 838 5033, email printingreal18@gmail.com.
 }
 
 Rules: use null for any quote field not stated. "t-shirts"/"tees"/"polos" = T-shirt; "hoodies"/"sweatshirts" = Hoodie; "caps"/"hats"/"snapbacks" = Cap; "totes"/"bags" = Tote bag; "mugs"/"cups"/"tumblers" = Mug. Embroidery keyword implies method Embroidery. Nearby Nigeria city names map to the closest list entry. For "chat" intent all quote fields are null.`;
