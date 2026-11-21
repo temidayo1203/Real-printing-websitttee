@@ -80,18 +80,37 @@ export default function Estimator() {
   const [p, setP] = useState<Parsed | null>(null);
   const timers = useRef<number[]>([]);
 
+  const remoteToParsed = (d: any, local: Parsed): Parsed => ({
+    product: products.find((x) => x.name === d.product) || local.product,
+    qty: d.qty ?? local.qty,
+    locations: d.locations ?? local.locations,
+    colours: d.colours ?? local.colours,
+    method: methods.includes(d.method) ? d.method : local.method,
+    city: cities.includes(d.city) ? d.city : local.city,
+    assumed: Array.isArray(d.assumed) && d.assumed.length ? d.assumed : local.assumed,
+  });
+
   const run = (value: string) => {
     if (!value.trim()) return;
     timers.current.forEach(clearTimeout);
     setPhase("thinking");
     setStep(0);
-    const parsed = parseRequest(value);
-    [700, 1500, 2300].forEach((ms, i) => {
-      timers.current.push(window.setTimeout(() => {
-        if (i < 2) setStep(i + 1);
-        else { setP(parsed); setPhase("result"); }
-      }, ms));
+    const local = parseRequest(value);
+    let parsed = local;
+    const remoteDone = fetch("/api/parse-quote", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text: value }),
+    })
+      .then(async (r) => { if (r.ok) parsed = remoteToParsed(await r.json(), local); })
+      .catch(() => {});
+    [700, 1500].forEach((ms, i) => {
+      timers.current.push(window.setTimeout(() => setStep(i + 1), ms));
     });
+    Promise.all([
+      Promise.race([remoteDone, new Promise((r) => setTimeout(r, 5000))]),
+      new Promise((r) => setTimeout(r, 2200)),
+    ]).then(() => { setP(parsed); setPhase("result"); });
   };
 
   const update = (patch: Partial<Parsed>) => setP((prev) => (prev ? { ...prev, ...patch } : prev));
