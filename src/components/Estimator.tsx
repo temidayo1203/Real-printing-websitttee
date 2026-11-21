@@ -32,15 +32,23 @@ const examples = [
   "12 branded caps with embroidery for my team, deliver to Port Harcourt",
 ];
 
-type Parsed = { product: Product; qty: number; locations: number; colours: number; method: string; city: string; assumed: string[]; reply?: string };
+type Parsed = { product: Product; qty: number; locations: number; colours: number; method: string; city: string; assumed: string[]; reply?: string; intent: "quote" | "chat" };
 
 function buildReply(p: Parsed): string {
   const guess = p.assumed.length ? " I've marked what I guessed — adjust anything on the left and the price updates." : " Adjust anything on the left and the price updates live.";
   return `Got it — ${p.qty} ${p.product.name.toLowerCase()}s, ${p.method.toLowerCase()}, delivered to ${p.city}. Here's your instant estimate.${guess}`;
 }
 
+const CHAT_REPLY = "I'm your print-quote assistant — tell me what you'd like printed and I'll price it instantly. For example: '50 t-shirts for my team in Lagos'.";
+const looksLikeQuote = (t: string) =>
+  /\d|print|embroider|custom|logo|brand|order|deliver|merch|produce|made|supply|souvenir/.test(t) ||
+  products.some((p) => p.keys.some((k) => t.includes(" " + k)));
+
 function parseRequest(text: string): Parsed {
   const t = " " + text.toLowerCase().replace(/[-–—]/g, " ") + " ";
+  if (!looksLikeQuote(t)) {
+    return { product: products[0], qty: 1, locations: 1, colours: 1, method: methods[0], city: cities[0], assumed: [], intent: "chat", reply: CHAT_REPLY };
+  }
   const assumed: string[] = [];
 
   const qtyMatch = t.match(/\b(\d{1,4})\b/);
@@ -73,7 +81,7 @@ function parseRequest(text: string): Parsed {
   const city = cities.find((c) => t.includes(c.toLowerCase())) || "Lagos";
   if (!cities.some((c) => t.includes(c.toLowerCase()))) assumed.push("Deliver to: Lagos");
 
-  const parsed = { product, qty, locations, colours, method, city, assumed };
+  const parsed = { product, qty, locations, colours, method, city, assumed, intent: "quote" as const };
   return { ...parsed, reply: buildReply(parsed) };
 }
 
@@ -95,6 +103,7 @@ export default function Estimator() {
     city: cities.includes(d.city) ? d.city : local.city,
     assumed: Array.isArray(d.assumed) && d.assumed.length ? d.assumed : local.assumed,
     reply: typeof d.reply === "string" && d.reply.trim() ? d.reply : undefined,
+    intent: d.intent === "chat" ? "chat" : local.intent,
   });
 
   const run = (value: string) => {
@@ -195,7 +204,19 @@ export default function Estimator() {
         </div>
       )}
 
-      {phase === "result" && p && calc && (
+      {phase === "result" && p && p.intent === "chat" && (
+        <>
+          <div className="aq-ai">
+            <span className="aq-ai-icon">
+              <svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M6 0l1.4 4.6L12 6 7.4 7.4 6 12 4.6 7.4 0 6l4.6-1.4L6 0z" fill="#2563eb"/></svg>
+            </span>
+            <p>{p.reply}</p>
+          </div>
+          {box}
+        </>
+      )}
+
+      {phase === "result" && p && p.intent === "quote" && calc && (
         <>
           <div className="aq-ai">
             <span className="aq-ai-icon">
