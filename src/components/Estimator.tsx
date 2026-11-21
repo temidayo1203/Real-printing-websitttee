@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import { whatsappLink } from "../whatsapp";
 
 type Product = { name: string; garment: number; keys: string[] };
@@ -86,14 +86,11 @@ function parseRequest(text: string): Parsed {
   return { ...parsed, reply: buildReply(parsed) };
 }
 
-const thinkSteps = ["Reading your request", "Choosing the best print method", "Calculating your price"];
-
 export default function Estimator() {
   const [text, setText] = useState("");
   const [phase, setPhase] = useState<"idle" | "thinking" | "result">("idle");
-  const [step, setStep] = useState(0);
+  const [lastMsg, setLastMsg] = useState("");
   const [p, setP] = useState<Parsed | null>(null);
-  const timers = useRef<number[]>([]);
 
   const remoteToParsed = (d: any, local: Parsed): Parsed => ({
     product: products.find((x) => x.name === d.product) || local.product,
@@ -109,9 +106,9 @@ export default function Estimator() {
 
   const run = (value: string) => {
     if (!value.trim()) return;
-    timers.current.forEach(clearTimeout);
+    setText("");
+    setLastMsg(value);
     setPhase("thinking");
-    setStep(0);
     const local = parseRequest(value);
     let parsed = local;
     const remoteDone = fetch("/api/parse-quote", {
@@ -121,9 +118,6 @@ export default function Estimator() {
     })
       .then(async (r) => { if (r.ok) parsed = remoteToParsed(await r.json(), local); })
       .catch(() => {});
-    [700, 1500].forEach((ms, i) => {
-      timers.current.push(window.setTimeout(() => setStep(i + 1), ms));
-    });
     Promise.all([
       Promise.race([remoteDone, new Promise((r) => setTimeout(r, 5000))]),
       new Promise((r) => setTimeout(r, 2200)),
@@ -178,35 +172,31 @@ export default function Estimator() {
         <h2>Describe it.<br /><em>Get a quote.</em></h2>
       </div>
 
+      {phase === "thinking" && (
+        <>
+          <div className="aq-user"><p>{lastMsg}</p></div>
+          <div className="aq-ai">
+            <span className="aq-ai-icon">
+              <svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M6 0l1.4 4.6L12 6 7.4 7.4 6 12 4.6 7.4 0 6l4.6-1.4L6 0z" fill="#2563eb"/></svg>
+            </span>
+            <p className="aq-thinking">Thinking</p>
+          </div>
+        </>
+      )}
+
       {phase !== "result" && box}
 
       {phase === "idle" && (
         <div className="aq-chips">
           {examples.map((ex) => (
-            <button key={ex} className="aq-chip" onClick={() => { setText(ex); run(ex); }}>{ex}</button>
-          ))}
-        </div>
-      )}
-
-      {phase === "thinking" && (
-        <div className="aq-think">
-          {thinkSteps.map((s, i) => (
-            <div key={s} className={`aq-think-step ${i < step ? "done" : i === step ? "doing" : "wait"}`}>
-              {i < step ? (
-                <span className="aq-check"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M2 6l2.4 2.4L9 3.6" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
-              ) : i === step ? (
-                <span className="aq-spin" />
-              ) : (
-                <span className="aq-dot" />
-              )}
-              {s}
-            </div>
+            <button key={ex} className="aq-chip" onClick={() => run(ex)}>{ex}</button>
           ))}
         </div>
       )}
 
       {phase === "result" && p && p.intent === "chat" && (
         <>
+          <div className="aq-user"><p>{lastMsg}</p></div>
           <div className="aq-ai">
             <span className="aq-ai-icon">
               <svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M6 0l1.4 4.6L12 6 7.4 7.4 6 12 4.6 7.4 0 6l4.6-1.4L6 0z" fill="#2563eb"/></svg>
@@ -219,6 +209,7 @@ export default function Estimator() {
 
       {phase === "result" && p && p.intent === "quote" && calc && (
         <>
+          <div className="aq-user"><p>{lastMsg}</p></div>
           <div className="aq-ai">
             <span className="aq-ai-icon">
               <svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M6 0l1.4 4.6L12 6 7.4 7.4 6 12 4.6 7.4 0 6l4.6-1.4L6 0z" fill="#2563eb"/></svg>

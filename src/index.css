@@ -267,17 +267,24 @@ button, input, select { font: inherit; }
 }
 .aq-chip:hover { background: #e9e9ee; }
 
-.aq-think { display: flex; flex-direction: column; gap: 14px; width: min(620px, 100% - 48px); margin: 26px auto 0; padding: 0 18px; }
-.aq-think-step { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 500; color: #1b1b1f; }
-.aq-think-step.wait { color: #c2c2cb; }
-.aq-check { width: 18px; height: 18px; border-radius: 50%; background: #16a34a; display: grid; place-items: center; flex: none; }
-.aq-dot { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid #d8d8de; flex: none; box-sizing: border-box; }
-.aq-spin {
-  width: 18px; height: 18px; border-radius: 50%; flex: none; box-sizing: border-box;
-  border: 2px solid #d3e0fb; border-top-color: #2563eb;
-  animation: aq-rotate .7s linear infinite;
+.aq-user {
+  display: flex; justify-content: flex-end;
+  width: min(880px, 100% - 48px); margin: 0 auto 14px;
+  animation: aq-fadein .3s ease;
 }
-@keyframes aq-rotate { to { transform: rotate(360deg); } }
+.aq-user p {
+  margin: 0; font-size: 14.5px; line-height: 1.6; color: #1b1b1f;
+  background: #eaf1fe; border-radius: 16px 16px 4px 16px; padding: 12px 16px;
+  max-width: 640px;
+}
+.aq-ai p.aq-thinking {
+  background: transparent; padding: 12px 0 12px 2px; font-weight: 500;
+  background-image: linear-gradient(90deg, #b9beca 0%, #1b1b1f 50%, #b9beca 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: aq-shimmer 1.3s linear infinite;
+}
+@keyframes aq-shimmer { to { background-position: -200% 0; } }
 
 .aq-ai {
   display: flex; gap: 10px; align-items: flex-start;
