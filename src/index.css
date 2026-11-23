@@ -332,10 +332,13 @@ button, input, select { font: inherit; }
 .aq-stepper span { min-width: 34px; text-align: center; font-size: 13.5px; font-weight: 600; color: #1b1b1f; }
 .aq-why { font-size: 12px; line-height: 1.55; color: #8a8a92; margin: 14px 0 10px; }
 .aq-why b { color: #1b1b1f; }
-.aq-assumed { font-size: 12px; color: #8a8a92; margin: 12px 0 0; }
+.aq-assumed {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+  font-size: 12px; color: #8a8a92; margin: 14px 0 0;
+}
 .aq-assumed b {
-  font-weight: 500; color: #4b4b55; background: #efeff3;
-  padding: 2px 8px; border-radius: 6px; margin-left: 4px;
+  font-weight: 500; color: #55555e; background: #efeff3;
+  padding: 3px 10px; border-radius: 999px; white-space: nowrap;
 }
 .aq-sline {
   display: flex; align-items: center; justify-content: space-between;

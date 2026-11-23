@@ -83,7 +83,7 @@ function parseRequest(text: string): Parsed {
   if (!cities.some((c) => t.includes(c.toLowerCase()))) assumed.push("Deliver to: Lagos");
 
   const parsed = { product, qty, locations, colours, method, city, assumed, intent: "quote" as const };
-  return { ...parsed, reply: buildReply(parsed) };
+  return { ...parsed, assumed: normalizeAssumed(parsed.assumed), reply: buildReply(parsed) };
 }
 
 export default function Estimator() {
@@ -99,7 +99,7 @@ export default function Estimator() {
     colours: d.colours ?? local.colours,
     method: methods.includes(d.method) ? d.method : local.method,
     city: cities.includes(d.city) ? d.city : local.city,
-    assumed: Array.isArray(d.assumed) && d.assumed.length ? d.assumed : local.assumed,
+    assumed: normalizeAssumed(Array.isArray(d.assumed) && d.assumed.length ? d.assumed : local.assumed),
     reply: typeof d.reply === "string" && d.reply.trim() ? d.reply : undefined,
     intent: d.intent === "chat" ? "chat" : local.intent,
   });
@@ -263,7 +263,7 @@ export default function Estimator() {
               {calc.discount > 0 && <div className="aq-sline"><span>Volume discount (3%)</span><span>−{fmt(calc.discount)}</span></div>}
               <div className="aq-sline"><span>Delivery · {p.city}</span><span>{fmt(DELIVERY)}</span></div>
               <div className="aq-total"><span>Total</span><strong>{fmt(calc.total)}</strong></div>
-              <a className="aq-cta" href="#/signup">Start designing →</a>
+              <a className="aq-cta" href="https://app.realprints.com.ng">Start designing →</a>
               <a
                 className="aq-wa"
                 href={whatsappLink(`Hi Real Printing! Here's my instant quote: ${p.qty}× ${p.product.name}, ${p.locations} print location(s), ${p.colours} colour(s), ${p.method}, deliver to ${p.city} — estimated total ${fmt(calc.total)}.`)}
