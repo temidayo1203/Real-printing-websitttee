@@ -40,6 +40,22 @@ function buildReply(p: Parsed): string {
 }
 
 const CHAT_REPLY = "I'm your print-quote assistant — tell me what you'd like printed and I'll price it instantly. What are you looking to print?";
+
+const ASSUMED_LABELS: Record<string, string> = {
+  qty: "Quantity", quantity: "Quantity", product: "Product",
+  locations: "Print locations", "print locations": "Print locations",
+  colours: "Colours", colors: "Colours", "colours per design": "Colours",
+  method: "Print method", "print method": "Print method",
+  city: "Deliver to", "deliver to": "Deliver to",
+};
+const normalizeAssumed = (list: string[]) =>
+  list.map((a) => {
+    const i = a.indexOf(":");
+    if (i === -1) return a.trim();
+    const key = a.slice(0, i).trim().toLowerCase();
+    const val = a.slice(i + 1).trim();
+    return `${ASSUMED_LABELS[key] || key} · ${val}`;
+  });
 const looksLikeQuote = (t: string) =>
   /\d/.test(t) ||
   (/\b(need|want|order|produce|make|supply|deliver|print|embroider|get|quote)\b/.test(t) &&
