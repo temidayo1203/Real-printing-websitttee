@@ -291,6 +291,8 @@ button, input, select { font: inherit; }
   width: min(880px, 100% - 48px); margin: 0 auto 18px;
   animation: aq-fadein .4s ease;
 }
+.aq-ai:has(.aq-thinking) { align-items: center; }
+.aq-ai:has(.aq-thinking) .aq-ai-icon { margin-top: 0; }
 .aq-ai-icon {
   width: 26px; height: 26px; border-radius: 50%; flex: none; margin-top: 2px;
   background: #e8effd; display: grid; place-items: center;
