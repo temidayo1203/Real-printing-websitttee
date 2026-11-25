@@ -32,13 +32,24 @@ Facts about Real Printing:
 - Starting garment prices: t-shirts from ₦4,500, hoodies ₦9,500, caps ₦3,800, tote bags ₦4,200, mugs ₦3,500 — print cost is extra and depends on method and coverage, so exact prices need a quote.
 }
 
-Rules: use null for any quote field not stated. "t-shirts"/"tees"/"polos" = T-shirt; "hoodies"/"sweatshirts" = Hoodie; "caps"/"hats"/"snapbacks" = Cap; "totes"/"bags" = Tote bag; "mugs"/"cups"/"tumblers" = Mug. Embroidery keyword implies method Embroidery. Nearby Nigeria city names map to the closest list entry. For "chat" intent all quote fields are null.`;
+Rules: use null for any quote field not stated. "t-shirts"/"tees"/"polos" = T-shirt; "hoodies"/"sweatshirts" = Hoodie; "caps"/"hats"/"snapbacks" = Cap; "totes"/"bags" = Tote bag; "mugs"/"cups"/"tumblers" = Mug. Embroidery keyword implies method Embroidery. Nearby Nigeria city names map to the closest list entry. For "chat" intent all quote fields are null.
+
+You may be given the conversation history and the customer's current quote. When the latest message modifies an earlier request (e.g. "make it 50", "change to hoodies", "deliver to Ibadan instead", "use embroidery"), return intent "quote" with ONLY the fields that changed or are newly stated — everything else null. The current quote values are provided so you can resolve references like "that", "it", "the same but".`;
+
 
 export default async function handler(req: any, res: any) {
   if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
   if (!GEMINI_API_KEY) return res.status(503).json({ error: "AI not configured" });
   const text = String(req.body?.text || "").slice(0, 800).trim();
   if (!text) return res.status(400).json({ error: "No text" });
+
+  const history = Array.isArray(req.body?.history)
+    ? req.body.history.slice(-8).map((m: any) => `${m.role === "user" ? "Customer" : "You"}: ${String(m.text || "").slice(0, 300)}`).join("\n")
+    : "";
+  const prev = req.body?.prev && typeof req.body.prev === "object"
+    ? `Current quote: ${JSON.stringify(req.body.prev).slice(0, 300)}`
+    : "";
+  const context = [history && `Conversation so far:\n${history}`, prev].filter(Boolean).join("\n\n");
 
   const callGemini = () =>
     fetch(
@@ -47,7 +58,7 @@ export default async function handler(req: any, res: any) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          contents: [{ parts: [{ text: `${PROMPT}\n\nCustomer message: """${text}"""` }] }],
+          contents: [{ parts: [{ text: `${PROMPT}\n\n${context ? context + "\n\n" : ""}Latest customer message: """${text}"""` }] }],
           generationConfig: { temperature: 0, responseMimeType: "application/json" },
         }),
       }

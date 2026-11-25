@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { whatsappLink } from "../whatsapp";
 
 type Product = { name: string; garment: number; keys: string[] };
@@ -61,6 +61,22 @@ const looksLikeQuote = (t: string) =>
   (/\b(need|want|order|produce|make|supply|deliver|print|embroider|get|quote)\b/.test(t) &&
     products.some((p) => p.keys.some((k) => t.includes(" " + k))));
 
+// Keep previously-stated fields when the follow-up didn't mention them
+// (parseRequest flags guessed fields in `assumed`).
+const mergeLocal = (parsed: Parsed, prev: Parsed | null): Parsed => {
+  if (!prev || parsed.intent !== "quote") return parsed;
+  const wasAssumed = (label: string) => parsed.assumed.some((a) => a.toLowerCase().startsWith(label));
+  return {
+    ...parsed,
+    product: wasAssumed("product") ? prev.product : parsed.product,
+    qty: wasAssumed("quantity") ? prev.qty : parsed.qty,
+    locations: wasAssumed("print locations") ? prev.locations : parsed.locations,
+    colours: wasAssumed("colours") ? prev.colours : parsed.colours,
+    method: wasAssumed("print method") ? prev.method : parsed.method,
+    city: wasAssumed("deliver to") ? prev.city : parsed.city,
+  };
+};
+
 function parseRequest(text: string): Parsed {
   const t = " " + text.toLowerCase().replace(/[-–—]/g, " ") + " ";
   if (!looksLikeQuote(t)) {
@@ -102,19 +118,26 @@ function parseRequest(text: string): Parsed {
   return { ...parsed, assumed: normalizeAssumed(parsed.assumed), reply: buildReply(parsed) };
 }
 
+type Msg = { role: "user" | "ai"; text: string };
+
 export default function Estimator() {
   const [text, setText] = useState("");
-  const [phase, setPhase] = useState<"idle" | "thinking" | "result">("idle");
-  const [lastMsg, setLastMsg] = useState("");
+  const [thinking, setThinking] = useState(false);
+  const [msgs, setMsgs] = useState<Msg[]>([]);
   const [p, setP] = useState<Parsed | null>(null);
+  const endRef = useRef<HTMLDivElement>(null);
 
-  const remoteToParsed = (d: any, local: Parsed): Parsed => ({
-    product: products.find((x) => x.name === d.product) || local.product,
-    qty: d.qty ?? local.qty,
-    locations: d.locations ?? local.locations,
-    colours: d.colours ?? local.colours,
-    method: methods.includes(d.method) ? d.method : local.method,
-    city: cities.includes(d.city) ? d.city : local.city,
+  useEffect(() => {
+    endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+  }, [msgs, thinking, p]);
+
+  const remoteToParsed = (d: any, local: Parsed, prev: Parsed | null): Parsed => ({
+    product: products.find((x) => x.name === d.product) || prev?.product || local.product,
+    qty: d.qty ?? prev?.qty ?? local.qty,
+    locations: d.locations ?? prev?.locations ?? local.locations,
+    colours: d.colours ?? prev?.colours ?? local.colours,
+    method: methods.includes(d.method) ? d.method : prev?.method || local.method,
+    city: cities.includes(d.city) ? d.city : prev?.city || local.city,
     assumed: normalizeAssumed(Array.isArray(d.assumed) && d.assumed.length ? d.assumed : local.assumed),
     reply: typeof d.reply === "string" && d.reply.trim() ? d.reply : undefined,
     intent: d.intent === "chat" ? "chat" : local.intent,
@@ -123,21 +146,36 @@ export default function Estimator() {
   const run = (value: string) => {
     if (!value.trim()) return;
     setText("");
-    setLastMsg(value);
-    setPhase("thinking");
-    const local = parseRequest(value);
-    let parsed = local;
+    const userMsg: Msg = { role: "user", text: value.trim() };
+    const history = msgs.slice(-8);
+    const prev = p;
+    setMsgs((m) => [...m, userMsg]);
+    setThinking(true);
+    const parsed0 = parseRequest(value);
+    let parsed = mergeLocal(parsed0, prev && prev.intent === "quote" ? prev : null);
+    const local = parsed;
     const remoteDone = fetch("/api/parse-quote", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text: value }),
+      body: JSON.stringify({
+        text: value,
+        history: history.map((m) => ({ role: m.role, text: m.text })),
+        prev: prev && prev.intent === "quote"
+          ? { product: prev.product.name, qty: prev.qty, locations: prev.locations, colours: prev.colours, method: prev.method, city: prev.city }
+          : null,
+      }),
     })
-      .then(async (r) => { if (r.ok) parsed = remoteToParsed(await r.json(), local); })
+      .then(async (r) => { if (r.ok) parsed = remoteToParsed(await r.json(), local, prev && prev.intent === "quote" ? prev : null); })
       .catch(() => {});
     Promise.all([
-      Promise.race([remoteDone, new Promise((r) => setTimeout(r, 5000))]),
-      new Promise((r) => setTimeout(r, 2200)),
-    ]).then(() => { setP({ ...parsed, reply: parsed.reply || buildReply(parsed) }); setPhase("result"); });
+      Promise.race([remoteDone, new Promise((r) => setTimeout(r, 6000))]),
+      new Promise((r) => setTimeout(r, 1600)),
+    ]).then(() => {
+      const reply = parsed.reply || (parsed.intent === "quote" ? buildReply(parsed) : CHAT_REPLY);
+      setMsgs((m) => [...m, { role: "ai", text: reply }]);
+      if (parsed.intent === "quote") setP({ ...parsed, reply });
+      setThinking(false);
+    });
   };
 
   const update = (patch: Partial<Parsed>) => setP((prev) => (prev ? { ...prev, ...patch } : prev));
@@ -188,50 +226,30 @@ export default function Estimator() {
         <h2>Describe it.<br /><em>Get a quote.</em></h2>
       </div>
 
-      {phase === "thinking" && (
-        <>
-          <div className="aq-user"><p>{lastMsg}</p></div>
-          <div className="aq-ai">
+      {msgs.map((m, i) =>
+        m.role === "user" ? (
+          <div key={i} className="aq-user"><p>{m.text}</p></div>
+        ) : (
+          <div key={i} className="aq-ai">
             <span className="aq-ai-icon">
               <svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M6 0l1.4 4.6L12 6 7.4 7.4 6 12 4.6 7.4 0 6l4.6-1.4L6 0z" fill="#2563eb"/></svg>
             </span>
-            <p className="aq-thinking">Thinking</p>
+            <p>{m.text}</p>
           </div>
-        </>
+        )
       )}
 
-      {phase !== "result" && box}
-
-      {phase === "idle" && (
-        <div className="aq-chips">
-          {examples.map((ex) => (
-            <button key={ex} className="aq-chip" onClick={() => run(ex)}>{ex}</button>
-          ))}
+      {thinking && (
+        <div className="aq-ai">
+          <span className="aq-ai-icon">
+            <svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M6 0l1.4 4.6L12 6 7.4 7.4 6 12 4.6 7.4 0 6l4.6-1.4L6 0z" fill="#2563eb"/></svg>
+          </span>
+          <p className="aq-thinking">Thinking</p>
         </div>
       )}
 
-      {phase === "result" && p && p.intent === "chat" && (
+      {p && p.intent === "quote" && calc && (
         <>
-          <div className="aq-user"><p>{lastMsg}</p></div>
-          <div className="aq-ai">
-            <span className="aq-ai-icon">
-              <svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M6 0l1.4 4.6L12 6 7.4 7.4 6 12 4.6 7.4 0 6l4.6-1.4L6 0z" fill="#2563eb"/></svg>
-            </span>
-            <p>{p.reply}</p>
-          </div>
-          {box}
-        </>
-      )}
-
-      {phase === "result" && p && p.intent === "quote" && calc && (
-        <>
-          <div className="aq-user"><p>{lastMsg}</p></div>
-          <div className="aq-ai">
-            <span className="aq-ai-icon">
-              <svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M6 0l1.4 4.6L12 6 7.4 7.4 6 12 4.6 7.4 0 6l4.6-1.4L6 0z" fill="#2563eb"/></svg>
-            </span>
-            <p>{p.reply}</p>
-          </div>
           <div className="aq-card">
             <div className="aq-left">
               <span className="aq-col-title">What we understood</span>
@@ -291,9 +309,20 @@ export default function Estimator() {
           </div>
 
           <p className="aq-note">This is an estimate. Your final price is confirmed with your design proof before we print.</p>
-          {box}
         </>
       )}
+
+      {box}
+
+      {msgs.length === 0 && !thinking && (
+        <div className="aq-chips">
+          {examples.map((ex) => (
+            <button key={ex} className="aq-chip" onClick={() => run(ex)}>{ex}</button>
+          ))}
+        </div>
+      )}
+
+      <div ref={endRef} />
     </section>
   );
 }
